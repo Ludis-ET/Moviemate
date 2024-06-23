@@ -1,12 +1,13 @@
 import { useState } from 'react'
+import { SideBarLeft, SideBarRight } from "./components";
 
 function App() {
 
   return (
     <>
-    <header></header>
+      <SideBarLeft  />
     </>
-  )
+  );
 }
 
 export default App

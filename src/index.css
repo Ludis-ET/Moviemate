@@ -10,12 +10,9 @@
 
 body {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(to bottom left, #e0324b, #24282a);
+  background: linear-gradient( #24282a, #e0324b);
   margin: 0;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-repeat: no-repeat;
   overflow: hidden;
 }
