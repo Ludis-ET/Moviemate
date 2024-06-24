@@ -150,7 +150,17 @@ export const SideBarRight = () => {
                 </div>
               </div>
             </div>
-            <div ca
+            <div className="flow-root my-4 text-white">
+              <p>Horror</p>
+              <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                <div
+                  className="bg-[#e0324b] text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full"
+                  style={{ width: "45%" }}
+                >
+                  45%
+                </div>
+              </div>
+            </div>
           </div>
         </main>
       </aside>
