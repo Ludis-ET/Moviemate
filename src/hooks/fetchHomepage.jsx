@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const fetchHomepage = async () => {
+export const fetchHomepage = async (url) => {
   const options = {
     method: "GET",
     headers: {
@@ -10,10 +10,7 @@ export const fetchHomepage = async () => {
   };
 
   try {
-    const response = await fetch(
-      "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-      options
-    );
+    const response = await fetch(url, options);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }

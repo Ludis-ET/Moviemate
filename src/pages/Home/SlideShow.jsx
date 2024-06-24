@@ -10,7 +10,9 @@ export const Slideshow = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const data = await fetchHomepage();
+        const data = await fetchHomepage(
+          "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"
+        );
         setMovies(data);
         setLoading(false);
       } catch (error) {
@@ -38,7 +40,7 @@ export const Slideshow = () => {
       text: movie.title,
       overview: movie.overview,
       release_date: movie.release_date,
-      vote_av: movie.vote_average,
+      vote_av: movie.vote_average.toFixed(1),
       vote_count: movie.vote_count,
     }));
   }
@@ -78,13 +80,16 @@ export const Slideshow = () => {
         <div className="w-full h-full bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
           <div className="w-1/2 flex gap-2">
             <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
-              {format(new Date(slides[currentIndex].release_date), 'MMMM dd, yyyy')}
+              {format(
+                new Date(slides[currentIndex].release_date),
+                "MMMM dd, yyyy"
+              )}
             </span>
             <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
               {slides[currentIndex].vote_count} person
             </span>
             <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
-              {slides[currentIndex].vote_count} 
+              {slides[currentIndex].vote_av} <i className="fa fa-star"></i>
             </span>
           </div>
 
