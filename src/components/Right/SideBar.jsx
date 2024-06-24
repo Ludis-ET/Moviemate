@@ -3,7 +3,7 @@ import React from "react";
 export const SideBarRight = () => {
   return (
     <>
-      <aside className="absolute right-0 top-0 w-96 h-screen p-4 bg-transparent">
+      <aside className="fixed right-0 top-0 w-96 h-screen p-4 bg-transparent">
         <header>
           <div className="flex items-center">
             <div className="flex-shrink-0">

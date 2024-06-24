@@ -8,11 +8,30 @@
   box-sizing: border-box;
 }
 
-body {
+html {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient( #24282a, #e0324b);
   margin: 0;
-  height: 100vh;
+  height: 100%;
+  background: linear-gradient(#24282a, #e0324b);
+  background-attachment: fixed;
   background-repeat: no-repeat;
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #24282a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e0324b;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d0223a;
 }
