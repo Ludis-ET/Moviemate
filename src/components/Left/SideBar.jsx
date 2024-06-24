@@ -42,10 +42,10 @@ export const SideBarLeft = () => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
-          <a href="#" class="flex items-center ps-2.5 mb-5">
-            <img src={Logo} class="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
+          <a href="#" className="flex items-center ps-2.5 mb-5">
+            <img src={Logo} className="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
             <span
-              class="self-center text-3xl font-semibold whitespace-nowrap dark:text-white"
+              className="self-center text-3xl font-semibold whitespace-nowrap dark:text-white"
               style={{ fontFamily: "Lobster, cursive" }}
             >
               Moviemate
@@ -67,7 +67,7 @@ export const SideBarLeft = () => {
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                <i class="fa-solid fa-umbrella-beach"></i>
+                <i className="fa-solid fa-umbrella-beach"></i>
                 <span className="ms-3">About to</span>
               </a>
             </li>
@@ -76,7 +76,7 @@ export const SideBarLeft = () => {
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                <i class="fa-solid fa-film"></i>
+                <i className="fa-solid fa-film"></i>
                 <span className="ms-3">Movies</span>
               </a>
             </li>
@@ -85,7 +85,7 @@ export const SideBarLeft = () => {
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                <i class="fa-solid fa-tv"></i>
+                <i className="fa-solid fa-tv"></i>
                 <span className="ms-3">Tv Series</span>
               </a>
             </li>
@@ -94,7 +94,7 @@ export const SideBarLeft = () => {
                 href="#"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
-                <i class="fa-brands fa-usps"></i>
+                <i className="fa-brands fa-usps"></i>
                 <span className="ms-3">LeaderBoard</span>
               </a>
             </li>

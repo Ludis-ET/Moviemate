@@ -1,13 +1,15 @@
-import { useState } from 'react'
+import { useState } from "react";
 import { SideBarLeft, SideBarRight } from "./components";
+import { Middle } from "./pages";
 
 function App() {
-
   return (
     <>
-      <SideBarLeft  />
+      <SideBarLeft />
+      <Middle />
+      <SideBarRight />
     </>
   );
 }
 
-export default App
+export default App;
