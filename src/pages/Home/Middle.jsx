@@ -1,6 +1,7 @@
 import { Header } from "./Header";
 import { Slideshow } from "./SlideShow";
 import { Movies } from "./Movies";
+import { fetchHomepage } from "../../hooks/fetchHomepage";
 
 export const Middle = () => {
   return (

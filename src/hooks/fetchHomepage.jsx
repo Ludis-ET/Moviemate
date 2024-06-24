@@ -5,7 +5,7 @@ export const fetchHomepage = async () => {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: `Bearer ${process.env.REACT_APP_MOVIE_AUTH}`,
+      Authorization: `Bearer ${import.meta.env.VITE_MOVIE_AUTH}`,
     },
   };
 
