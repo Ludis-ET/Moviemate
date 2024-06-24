@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
 import { MovieCard } from "./MovieCard";
 
-export const Movies = () => {
+export const Series = () => {
   const scrollRef = useRef(null);
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ export const Movies = () => {
     const fetchMovies = async () => {
       try {
         const data = await fetchHomepage(
-          "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1"
+          "https://api.themoviedb.org/3/tv/popular?language=en-US"
         );
         setMovies(data);
         setLoading(false);
@@ -45,7 +45,7 @@ export const Movies = () => {
   return (
     <div className="overflow-hidden">
       <header className="text-white text-2xl flex justify-between m-2">
-        <p>Popular Movies</p>
+        <p>Popular Tv Series</p>
         <div className="flex gap-2">
           <i
             className="fa fa-arrow-left py-2 cursor-pointer hover:bg-opacity-10 bg-gray-900 bg-opacity-50 rounded-full px-2"
