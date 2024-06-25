@@ -44,7 +44,7 @@ export const Movies = () => {
   return (
     <div className="overflow-hidden">
       <header className="text-white text-2xl flex justify-between m-2">
-        <p>Popular Movies</p>
+        <p>Top Rated Movies</p>
         <div className="flex gap-2">
           <i
             className="fa fa-arrow-left py-2 cursor-pointer hover:bg-opacity-10 bg-gray-900 bg-opacity-50 rounded-full px-2"

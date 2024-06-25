@@ -6,7 +6,6 @@ import { formatDistanceToNow } from "date-fns";
 
 export const Top = () => {
   const { currentUser, signUpWithGoogle, signOut } = useAuth();
-  console.log(currentUser);
 
   const handleGoogleSignUp = async () => {
     try {

@@ -44,28 +44,6 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-  const signInWithEmailPassword = async (email, password) => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  const signUpWithEmailPassword = async (email, password) => {
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-      setCurrentUser(user);
-    } catch (error) {
-      throw error;
-    }
-  };
-
   const signUpWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
@@ -88,8 +66,6 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     currentUser,
-    signInWithEmailPassword,
-    signUpWithEmailPassword,
     signUpWithGoogle,
     signOut,
     db,

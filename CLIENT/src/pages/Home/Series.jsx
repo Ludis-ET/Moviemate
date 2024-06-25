@@ -11,7 +11,7 @@ export const Series = () => {
     const fetchMovies = async () => {
       try {
         const data = await fetchHomepage(
-          "https://api.themoviedb.org/3/tv/popular?language=en-US"
+          "https://api.themoviedb.org/3/tv/top_rated?language=en-US&page=1"
         );
         setMovies(data);
         setLoading(false);
@@ -45,7 +45,7 @@ export const Series = () => {
   return (
     <div className="overflow-hidden">
       <header className="text-white text-2xl flex justify-between m-2">
-        <p>Popular Tv Series</p>
+        <p>Top Rated Tv Series</p>
         <div className="flex gap-2">
           <i
             className="fa fa-arrow-left py-2 cursor-pointer hover:bg-opacity-10 bg-gray-900 bg-opacity-50 rounded-full px-2"

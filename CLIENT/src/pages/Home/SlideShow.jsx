@@ -11,7 +11,7 @@ export const Slideshow = () => {
     const fetchMovies = async () => {
       try {
         const data = await fetchHomepage(
-          "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"
+          "https://api.themoviedb.org/3/trending/movie/day?language=en-US"
         );
         setMovies(data);
         setLoading(false);
