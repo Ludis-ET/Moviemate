@@ -44,6 +44,7 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+
   const signUpWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {

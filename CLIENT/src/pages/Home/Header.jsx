@@ -1,9 +1,7 @@
-import { Notifications } from "./Notifications";
-
 export const Header = () => {
   return (
     <div className="bg-transparent flex  justify-between items-center h-20 overflow-hidden">
-      <form className="max-w-md w-96">
+      <form className="w-full">
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -32,7 +30,8 @@ export const Header = () => {
             type="search"
             id="default-search"
             className="block w-full p-4 ps-10 text-sm outline-none text-gray-900 border border-[#e0324b] rounded-lg bg-gray-50 bg-opacity-50 focus:ring-[#4c2a36] focus:border-[#4c2a36] dark:bg-gray-700 dark:bg-opacity-50 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Search Mockups, Logos..."
+            placeholder="Search Movie & Tv Series"
+            autoComplete="off"
             required
           />
           <button
@@ -43,7 +42,6 @@ export const Header = () => {
           </button>
         </div>
       </form>
-      <Notifications />
     </div>
   );
 };
