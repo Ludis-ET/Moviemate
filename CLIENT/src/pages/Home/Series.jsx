@@ -62,7 +62,7 @@ export const Series = () => {
         style={{ scrollBehavior: "smooth" }}
         ref={scrollRef}
       >
-        {loading
+        {loading || movies === undefined
           ? [1, 2, 3].map(() => (
               <div className="w-60 h-80 bg-gray-700 animate-pulse rounded-lg"></div>
             ))

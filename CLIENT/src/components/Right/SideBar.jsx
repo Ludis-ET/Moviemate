@@ -1,11 +1,21 @@
-import React from "react";
+import { useState } from "react";
 
 export const SideBarRight = () => {
+  const [showMockup, setShowMockup] = useState(false);
+  const [showSignin, setShowSignin] = useState(true);
+
+  const toggleView = () => {
+    setShowSignin(!showSignin);
+  };
+
+  const handleClick = () => {
+    setShowMockup(!showMockup);
+  };
   return (
     <>
       <aside className="fixed right-0 top-0 w-96 h-screen p-4 bg-transparent">
-        <header>
-          <div className="flex items-center">
+        <header className="text-center">
+          {/* <div className="flex items-center">
             <div className="flex-shrink-0">
               <img
                 className="w-8 h-8 rounded-full"
@@ -20,6 +30,84 @@ export const SideBarRight = () => {
               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                 email@windster.com
               </p>
+            </div>
+          </div> */}
+          <div className="">
+            <button
+              className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+              onClick={handleClick}
+            >
+              Signin
+            </button>
+            <div
+              className={`mockup-phone top-24 left-1 absolute border-primary transition-transform duration-500 ${
+                showMockup ? "transform scale-100" : "transform scale-0"
+              }`}
+            >
+              <div className="camera"></div>
+              <div className="display">
+                <div
+                  className="artboard artboard-demo phone-1 p-4"
+                  style={{ background: "linear-gradient(#e0324b, #24282a)" }}
+                >
+                  {showSignin ? (
+                    <div className="signin">
+                      <h2 className="text-2xl font-bold mb-4">Sign In</h2>
+                      <form>
+                        <input
+                          type="email"
+                          placeholder="Email"
+                          className="input input-bordered w-full mb-4"
+                        />
+                        <input
+                          type="password"
+                          placeholder="Password"
+                          className="input input-bordered w-full mb-4"
+                        />
+                        <button className="btn btn-primary w-full">
+                          Sign In
+                        </button>
+                      </form>
+                      <p className="mt-4">
+                        Don't have an account?{" "}
+                        <button className="text-blue-500" onClick={toggleView}>
+                          Sign Up
+                        </button>
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="signup">
+                      <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+                      <form>
+                        <input
+                          type="text"
+                          placeholder="Username"
+                          className="input input-bordered w-full mb-4"
+                        />
+                        <input
+                          type="email"
+                          placeholder="Email"
+                          className="input input-bordered w-full mb-4"
+                        />
+                        <input
+                          type="password"
+                          placeholder="Password"
+                          className="input input-bordered w-full mb-4"
+                        />
+                        <button className="btn btn-primary w-full">
+                          Sign Up
+                        </button>
+                      </form>
+                      <p className="mt-4">
+                        Already have an account?{" "}
+                        <button className="text-blue-500" onClick={toggleView}>
+                          Sign In
+                        </button>
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </header>

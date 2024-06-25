@@ -34,7 +34,7 @@ export const Slideshow = () => {
 
   let slides = [];
 
-  if (movies.length) {
+  if (movies) {
     slides = movies.map((movie) => ({
       image: `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`,
       text: movie.title,
@@ -44,9 +44,9 @@ export const Slideshow = () => {
       vote_count: movie.vote_count,
     }));
   }
-  console.log(movies);
+  console.log(slides.length);
 
-  return loading ? (
+  return loading || slides.length === 0 ? (
     <div className="relative w-full h-96 overflow-hidden rounded-md animate-pulse bg-gray-200">
       <div className="absolute inset-0 w-full h-full flex justify-between items-end">
         <div className="w-full h-full bg-gradient-to-t from-black/70 to-transparent p-4 text-white">

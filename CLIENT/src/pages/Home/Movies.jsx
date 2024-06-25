@@ -41,7 +41,6 @@ export const Movies = () => {
       });
     }
   };
-
   return (
     <div className="overflow-hidden">
       <header className="text-white text-2xl flex justify-between m-2">
@@ -62,7 +61,7 @@ export const Movies = () => {
         style={{ scrollBehavior: "smooth" }}
         ref={scrollRef}
       >
-        {loading
+        {loading || movies === undefined
           ? [1, 2, 3].map(() => (
               <div className="w-60 h-80 bg-gray-700 animate-pulse rounded-lg"></div>
             ))
