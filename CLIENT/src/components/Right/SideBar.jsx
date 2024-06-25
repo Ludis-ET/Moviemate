@@ -58,6 +58,7 @@ export const SideBarRight = () => {
                           type="email"
                           placeholder="Email"
                           className="input input-bordered w-full mb-4"
+                          autoComplete="off"
                         />
                         <input
                           type="password"
