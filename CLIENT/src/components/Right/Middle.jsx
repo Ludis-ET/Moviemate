@@ -68,7 +68,7 @@ export const Middle = () => {
                     </div>
                   </li>
                 ))
-              : movies.slice(0, 5).map((m) => (
+              : movies.slice(0, 8).map((m) => (
                   <li className="p-2">
                     <div className="flex items-center">
                       <div className="flex-shrink-0">
