@@ -6,7 +6,7 @@ import Ludis from "../../assets/ludis.jpg";
 
 export const Middle = () => {
   return (
-    <div className="md:ml-52 h-screen md:w-[65%] px-20">
+    <div>
       <Header />
       <Slideshow />
       <Movies />

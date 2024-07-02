@@ -1,7 +1,18 @@
+import { useNavigate } from "react-router-dom";
+
 export const Header = () => {
+  const navigate = useNavigate();
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const searchTerm = formData.get("search");
+    navigate(`/search?name=${searchTerm}`);
+  };
+
   return (
-    <div className="bg-transparent flex  justify-between items-center h-20 overflow-hidden">
-      <form className="w-full">
+    <div className="bg-transparent flex justify-between items-center h-20 overflow-hidden">
+      <form className="w-full" onSubmit={handleSearch}>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -29,6 +40,7 @@ export const Header = () => {
           <input
             type="search"
             id="default-search"
+            name="search"
             className="block w-full p-4 ps-10 text-sm outline-none text-gray-900 border border-[#e0324b] rounded-lg bg-gray-50 bg-opacity-50 focus:ring-[#4c2a36] focus:border-[#4c2a36] dark:bg-gray-700 dark:bg-opacity-50 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search Movie & Tv Series"
             autoComplete="off"
