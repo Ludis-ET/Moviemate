@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Header } from "../Home/Header";
 import F from "../../assets/404.svg";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
 import Example from "./example";
@@ -45,7 +44,6 @@ export const Results = () => {
   if (loading) {
     return (
       <>
-        <Header />
         <span className="loading absolute top-[30%] left-[40%]  loading-ring w-56"></span>
       </>
     );
@@ -54,7 +52,6 @@ export const Results = () => {
   if (error) {
     return (
       <div>
-        <Header />
         <div>Error: {error}</div>
         <div className="flex justify-center">
           <img src={F} className="w-1/2 text-center self-center" alt="" />
@@ -65,7 +62,6 @@ export const Results = () => {
 
   return (
     <div>
-      <Header />
       <h1>Search Results for "{searchTerm}"</h1>
       <div className="flex flex-wrap gap-4 justify-center">
         {movies.length > 0 ? (
