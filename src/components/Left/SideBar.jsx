@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Logo from "../../assets/logo.png";
+import { Link } from "react-router-dom";
 
 export const SideBarLeft = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +43,7 @@ export const SideBarLeft = () => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
-          <a href="#" className="flex items-center ps-2.5 mb-5">
+          <Link to="/" className="flex items-center ps-2.5 mb-5">
             <img src={Logo} className="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
             <span
               className="self-center text-3xl font-semibold whitespace-nowrap dark:text-white"
@@ -50,26 +51,26 @@ export const SideBarLeft = () => {
             >
               Moviemate
             </span>
-          </a>
+          </Link>
 
           <ul className="space-y-2 mt-12 font-medium">
             <li>
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <i className="fa fa-home"></i>
                 <span className="ms-3">Home</span>
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="/about-to"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <i className="fa-solid fa-umbrella-beach"></i>
                 <span className="ms-3">About to</span>
-              </a>
+              </Link>
             </li>
             <li>
               <a

@@ -16,7 +16,7 @@ export const Middle = () => {
         const data = await fetchHomepage(
           "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"
         );
-        setMovies(data);
+        setMovies(data.results);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching movies:", error);

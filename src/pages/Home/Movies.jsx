@@ -13,7 +13,7 @@ export const Movies = () => {
         const data = await fetchHomepage(
           "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1"
         );
-        setMovies(data);
+        setMovies(data.results);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching movies:", error);

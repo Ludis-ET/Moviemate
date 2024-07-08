@@ -1,4 +1,3 @@
-import { Header } from "./Header";
 import { Slideshow } from "./SlideShow";
 import { Movies } from "./Movies";
 import { Series } from "./Series";
@@ -7,7 +6,6 @@ import Ludis from "../../assets/ludis.jpg";
 export const Middle = () => {
   return (
     <div>
-      <Header />
       <Slideshow />
       <Movies />
       <div className="m-16 card card-side bg-transparent shadow-2xl">

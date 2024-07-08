@@ -8,6 +8,7 @@ export const Header = () => {
     const formData = new FormData(event.target);
     const searchTerm = formData.get("search");
     navigate(`/search?name=${searchTerm}`);
+    event.target.reset();
   };
 
   return (

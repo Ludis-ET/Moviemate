@@ -13,7 +13,7 @@ export const Slideshow = () => {
         const data = await fetchHomepage(
           "https://api.themoviedb.org/3/trending/movie/day?language=en-US"
         );
-        setMovies(data);
+        setMovies(data.results);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching movies:", error);

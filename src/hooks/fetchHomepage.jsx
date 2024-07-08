@@ -15,7 +15,7 @@ export const fetchHomepage = async (url) => {
       throw new Error("Network response was not ok");
     }
     const data = await response.json();
-    return data.results;
+    return data;
   } catch (error) {
     console.error("Error fetching now playing movies:", error);
   }
