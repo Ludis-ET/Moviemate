@@ -29,7 +29,6 @@ export const Middle = () => {
   const click = () => {
     setLoading(true);
     setToogle(!toogle);
-    console.log("yes");
   };
 
   return (

@@ -43,7 +43,6 @@ const Example = ({ movie }) => {
     x.set(0);
     y.set(0);
   };
-  console.log(movie);
   return (
     <motion.div
       ref={ref}

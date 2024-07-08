@@ -34,7 +34,6 @@ export const Slideshow = () => {
   }, [movies]);
 
   let slides = [];
-console.log(movies)
   if (movies) {
     slides = movies.map((movie) => ({
       image: `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`,

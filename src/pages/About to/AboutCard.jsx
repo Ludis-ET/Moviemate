@@ -25,7 +25,6 @@ export const AboutCard = ({ movies }) => {
       fetchMovie();
     }
   }, [movies.movieId]);
-  console.log(movie);
   return (
     <>
       {loading ? (
