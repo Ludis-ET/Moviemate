@@ -39,34 +39,38 @@ export const Movies = ({ url, title }) => {
       });
     }
   };
-  console.log(movies)
   return (
-    <div className="overflow-hidden">
-      <header className="text-white text-2xl flex justify-between m-2">
-        <p>{title}</p>
-        <div className="flex gap-2">
-          <i
-            className="fa fa-arrow-left py-2 cursor-pointer hover:bg-opacity-10 bg-gray-900 bg-opacity-50 rounded-full px-2"
-            onClick={scrollLeft}
-          ></i>
-          <i
-            className="fa fa-arrow-right py-2 cursor-pointer hover:bg-opacity-10 bg-gray-900 bg-opacity-50 rounded-full px-2"
-            onClick={scrollRight}
-          ></i>
+    <>
+      {movies.length > 0 && (
+        <div className="overflow-hidden">
+          <header className="text-white text-2xl flex justify-between m-2">
+            <p>{title}</p>
+            <div className="flex gap-2">
+              <i
+                className="fa fa-arrow-left py-2 cursor-pointer hover:bg-opacity-10 bg-gray-900 bg-opacity-50 rounded-full px-2"
+                onClick={scrollLeft}
+              ></i>
+              <i
+                className="fa fa-arrow-right py-2 cursor-pointer hover:bg-opacity-10 bg-gray-900 bg-opacity-50 rounded-full px-2"
+                onClick={scrollRight}
+              ></i>
+            </div>
+          </header>
+          <main
+            className="w-full flex gap-6 overflow-x-hidden transition-[2s]"
+            style={{ scrollBehavior: "smooth" }}
+            ref={scrollRef}
+          >
+            {loading || movies === undefined
+              ? [1, 2, 3].map(() => (
+                  <div className="w-60 h-80 bg-gray-700 animate-pulse rounded-lg"></div>
+                ))
+              : movies.map((movie) => (
+                  <MovieCard key={movie.id} movie={movie} />
+                ))}
+          </main>
         </div>
-      </header>
-      <main
-        className="w-full flex gap-6 overflow-x-hidden transition-[2s]"
-        style={{ scrollBehavior: "smooth" }}
-        ref={scrollRef}
-      >
-        {loading || movies === undefined
-          ? [1, 2, 3].map(() => (
-              <div className="w-60 h-80 bg-gray-700 animate-pulse rounded-lg"></div>
-            ))
-          : movies.map((movie) =>
-           <MovieCard key={movie.id} movie={movie} />)}
-      </main>
-    </div>
+      )}
+    </>
   );
 };

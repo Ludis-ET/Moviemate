@@ -14,10 +14,8 @@ export const Movie = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-
-      setLoading(true);
+    setLoading(true);
     const fetchMovie = async () => {
-
       setLoading(true);
       try {
         const data = await fetchHomepage(
@@ -29,6 +27,7 @@ export const Movie = () => {
         setMovie(data);
         setImages(img.posters);
       } catch (error) {
+        setLoading(false);
         console.error("Error fetching movie:", error);
       } finally {
         setLoading(false);
@@ -66,7 +65,6 @@ export const Movie = () => {
       </div>
     );
   }
-  console.log(movie);
   return (
     <main className="profile-page">
       <section className="relative block h-500-px">
