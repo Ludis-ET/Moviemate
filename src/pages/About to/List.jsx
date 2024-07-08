@@ -12,6 +12,7 @@ export const List = () => {
 
   useEffect(() => {
     const getMovies = async () => {
+      setLoading(true);
       try {
         const data = await getDocs(aboutRef);
         const res = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
@@ -23,13 +24,13 @@ export const List = () => {
       }
     };
     getMovies();
-  }, [aboutRef]);
+  }, [db]);
 
   if (loading) {
     return (
-      <>
-        <span className="loading absolute top-[30%] left-[40%] loading-ring w-56"></span>
-      </>
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-ring w-56"></span>
+      </div>
     );
   }
 
