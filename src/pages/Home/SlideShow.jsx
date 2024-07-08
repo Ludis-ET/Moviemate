@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 export const Slideshow = () => {
   const [movies, setMovies] = useState([]);
@@ -33,7 +34,7 @@ export const Slideshow = () => {
   }, [movies]);
 
   let slides = [];
-
+console.log(movies)
   if (movies) {
     slides = movies.map((movie) => ({
       image: `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`,
@@ -42,6 +43,7 @@ export const Slideshow = () => {
       release_date: movie.release_date,
       vote_av: movie.vote_average.toFixed(1),
       vote_count: movie.vote_count,
+      id: movie.id,
     }));
   }
 
@@ -70,40 +72,42 @@ export const Slideshow = () => {
     </div>
   ) : (
     <div className="relative w-full h-96 overflow-hidden rounded-md">
-      <img
-        src={slides[currentIndex].image}
-        alt={`Slide ${currentIndex + 1}`}
-        className="w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 w-full h-full flex justify-between items-end">
-        <div className="w-full h-full bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
-          <div className="w-1/2 flex gap-2">
-            <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
-              {format(
-                new Date(slides[currentIndex].release_date),
-                "MMMM dd, yyyy"
-              )}
-            </span>
-            <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
-              {slides[currentIndex].vote_count} person
-            </span>
-            <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
-              {slides[currentIndex].vote_av} <i className="fa fa-star"></i>
-            </span>
-          </div>
+      <Link to={`${slides[currentIndex].id}/detail`}>
+        <img
+          src={slides[currentIndex].image}
+          alt={`Slide ${currentIndex + 1}`}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 w-full h-full flex justify-between items-end">
+          <div className="w-full h-full bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
+            <div className="w-1/2 flex gap-2">
+              <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
+                {format(
+                  new Date(slides[currentIndex].release_date),
+                  "MMMM dd, yyyy"
+                )}
+              </span>
+              <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
+                {slides[currentIndex].vote_count} person
+              </span>
+              <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
+                {slides[currentIndex].vote_av} <i className="fa fa-star"></i>
+              </span>
+            </div>
 
-          <div className="flex justify-between mt-[28%] w-full">
-            <div className="w-1/2">
-              <div className="text-lg font-bold">
-                {slides[currentIndex].text}
-              </div>
-              <div className="text-sm mt-2">
-                {slides[currentIndex].overview.slice(0, 100)}...
+            <div className="flex justify-between mt-[28%] w-full">
+              <div className="w-1/2">
+                <div className="text-lg font-bold">
+                  {slides[currentIndex].text}
+                </div>
+                <div className="text-sm mt-2">
+                  {slides[currentIndex].overview.slice(0, 100)}...
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

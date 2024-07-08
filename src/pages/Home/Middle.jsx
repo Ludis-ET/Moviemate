@@ -1,13 +1,14 @@
 import { Slideshow } from "./SlideShow";
 import { Movies } from "./Movies";
 import { Series } from "./Series";
+import { Footer } from "../../components";
 import Ludis from "../../assets/ludis.jpg";
 
 export const Middle = () => {
   return (
     <div>
       <Slideshow />
-      <Movies />
+      <Movies url="https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1" title='Top Rated Movies' />
       <div className="m-16 card card-side bg-transparent shadow-2xl">
         <figure>
           <img src={Ludis} alt="Movie" />
@@ -33,27 +34,7 @@ export const Middle = () => {
         </div>
       </div>
       <Series />
-      <footer className="footer footer-center bg-transparent mt-12 text-base-content rounded p-10">
-        <nav className="grid grid-flow-col gap-4">
-          <a className="link link-hover">Whishlist</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">About to</a>
-          <a className="link link-hover">Leaderboard</a>
-        </nav>
-        <nav>
-          <div className="grid grid-flow-col gap-4">
-            <a href="" className="fab fa-github fa-2x"></a>
-            <a href="" className="fab fa-telegram fa-2x"></a>
-            <a href="" className="fab fa-instagram fa-2x"></a>
-          </div>
-        </nav>
-        <aside>
-          <p>
-            Copyright © ${new Date().getFullYear()} - All right reserved by
-            Ludis
-          </p>
-        </aside>
-      </footer>
+      <Footer />
     </div>
   );
 };

@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
 import { useParams } from "react-router-dom";
 import { Button } from "../../components";
+import { format } from "date-fns";
+import { Movies } from "../Home/Movies";
+import { Footer } from "../../components";
 
 export const Movie = () => {
   const { id } = useParams();
@@ -11,7 +14,10 @@ export const Movie = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
+
+      setLoading(true);
     const fetchMovie = async () => {
+
       setLoading(true);
       try {
         const data = await fetchHomepage(
@@ -60,7 +66,7 @@ export const Movie = () => {
       </div>
     );
   }
-
+  console.log(movie);
   return (
     <main className="profile-page">
       <section className="relative block h-500-px">
@@ -126,55 +132,53 @@ export const Movie = () => {
                   <div className="flex justify-center py-4 lg:pt-4 pt-8">
                     <div className="mr-4 p-3 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-white">
-                        22
+                        {movie.popularity.toFixed(1)}
                       </span>
-                      <span className="text-sm text-white">Friends</span>
+                      <span className="text-sm text-white">Popularity</span>
                     </div>
                     <div className="mr-4 p-3 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-white">
-                        10
+                        {movie.adult ? "Yes" : "no"}
                       </span>
-                      <span className="text-sm text-white">Photos</span>
+                      <span className="text-sm text-white">Adultry</span>
                     </div>
                     <div className="lg:mr-4 p-3 text-center">
                       <span className="text-xl font-bold block uppercase tracking-wide text-white">
-                        89
+                        {movie.runtime}
                       </span>
-                      <span className="text-sm text-white">Comments</span>
+                      <span className="text-sm text-white">Runtime</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div className="text-center mt-12">
                 <h3 className="text-4xl font-semibold leading-normal mb-2 text-white">
-                  Jenna Stones
+                  {movie.title}
                 </h3>
                 <div className="text-sm leading-normal mt-0 mb-2 text-white font-bold uppercase">
-                  <i className="fas fa-map-marker-alt mr-2 text-lg text-white"></i>
-                  Los Angeles, California
+                  {movie.tagline}
                 </div>
-                <div className="mb-2 text-white mt-10">
-                  <i className="fas fa-briefcase mr-2 text-lg text-white"></i>
-                  Solution Manager - Creative Tim Officer
+                <div className="text-sm leading-normal mt-0 mb-2 text-white font-bold uppercase">
+                  {format(new Date(movie.release_date), "MMMM dd, yyyy")}
+                </div>
+                <div className="mb-2 flex flex-wrap gap-4 justify-center text-white mt-10">
+                  {movie.genres.map((g) => (
+                    <button class="bg-red-950 text-red-400 border border-red-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                      <span class="bg-red-400 shadow-red-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                      {g.name}
+                    </button>
+                  ))}
                 </div>
                 <div className="mb-2 text-white">
-                  <i className="fas fa-university mr-2 text-lg text-white"></i>
-                  University of Computer Science
+                  {movie.vote_count} people voted it
                 </div>
               </div>
               <div className="mt-10 py-10 border-t border-white text-center">
                 <div className="flex flex-wrap justify-center">
                   <div className="w-full lg:w-9/12 px-4">
                     <p className="mb-4 text-lg leading-relaxed text-white">
-                      An artist of considerable range, Jenna the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                      performs and records all of his own music, giving it a
-                      warm, intimate feel with a solid groove structure. An
-                      artist of considerable range.
+                      {movie.overview}
                     </p>
-                    <a href="#pablo" className="font-normal text-pink-500">
-                      Show more
-                    </a>
                   </div>
                 </div>
               </div>
@@ -182,6 +186,11 @@ export const Movie = () => {
           </div>
         </div>
       </section>
+      <Movies
+        url={`https://api.themoviedb.org/3/movie/${id}/recommendations?language=en-US&page=1`}
+        title="Recommendations"
+      />
+      <Footer />
     </main>
   );
 };

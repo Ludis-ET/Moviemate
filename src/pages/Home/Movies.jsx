@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
 import { MovieCard } from "./MovieCard";
 
-export const Movies = () => {
+export const Movies = ({ url, title }) => {
   const scrollRef = useRef(null);
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,9 +10,7 @@ export const Movies = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const data = await fetchHomepage(
-          "https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1"
-        );
+        const data = await fetchHomepage(url);
         setMovies(data.results);
         setLoading(false);
       } catch (error) {
@@ -41,10 +39,11 @@ export const Movies = () => {
       });
     }
   };
+  console.log(movies)
   return (
     <div className="overflow-hidden">
       <header className="text-white text-2xl flex justify-between m-2">
-        <p>Top Rated Movies</p>
+        <p>{title}</p>
         <div className="flex gap-2">
           <i
             className="fa fa-arrow-left py-2 cursor-pointer hover:bg-opacity-10 bg-gray-900 bg-opacity-50 rounded-full px-2"
@@ -65,7 +64,8 @@ export const Movies = () => {
           ? [1, 2, 3].map(() => (
               <div className="w-60 h-80 bg-gray-700 animate-pulse rounded-lg"></div>
             ))
-          : movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+          : movies.map((movie) =>
+           <MovieCard key={movie.id} movie={movie} />)}
       </main>
     </div>
   );

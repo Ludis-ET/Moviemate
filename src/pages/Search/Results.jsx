@@ -24,7 +24,6 @@ export const Results = () => {
 
         const combinedData = [...movieResults.results, ...tvResults.results];
 
-        // Sort combinedData by rating (assuming 'vote_average' is the rating field)
         combinedData.sort((a, b) => b.vote_average - a.vote_average);
 
         setMovies(combinedData);
