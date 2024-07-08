@@ -1,5 +1,5 @@
 import './delete.css'
-export const Delete = () => {
+export const DeleteButton = () => {
   return (
     <button class="delete">
       <svg viewBox="0 0 448 512" class="svgIcon">

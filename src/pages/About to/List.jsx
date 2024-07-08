@@ -4,7 +4,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 export const List = () => {
-  const { db } = useAuth();
+  const { db, currentUser } = useAuth();
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,8 +25,7 @@ export const List = () => {
     };
     getMovies();
   }, [db]);
-
-  if (loading) {
+  if (loading || movies.length === 0) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <span className="loading loading-ring w-56"></span>
@@ -36,9 +35,11 @@ export const List = () => {
 
   return (
     <div className="w-full mt-4 flex gap-8 flex-wrap">
-      {movies.map((m) => (
-        <AboutCard key={m.id} movies={m} />
-      ))}
+      {movies
+        .filter((m) => m.userId === currentUser.uid)
+        .map((m) => (
+          <AboutCard key={m.id} movies={m} />
+        ))}
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
-import { Button } from "../../components/Random/Button";
-import { Delete } from "./Delete";
+import { Button, DeleteButton, LikeButton } from "../../components";
 
 export const AboutCard = ({ movies }) => {
   const [movie, setMovie] = useState(null);
@@ -70,12 +69,12 @@ export const AboutCard = ({ movies }) => {
               <p className="text-grey-darker text-base">{movie.overview}</p>
             </div>
             <div className="flex items-center">
-              <div className="text-sm">
-                <Button text={10} rate={true} />
-                <Delete />
-
-                {/* <p className="text-black leading-none">{movie.director}</p>
-                <p className="text-grey-dark">{movie.releaseDate}</p> */}
+              <div className="text-sm justify-between items-center w-full flex flex-wrap  gap-8">
+                <Button text={movie.vote_average.toFixed(1)} rate={true} />
+                <div className="flex gap-8">
+                  <LikeButton />
+                  <DeleteButton />
+                </div>
               </div>
             </div>
           </div>
