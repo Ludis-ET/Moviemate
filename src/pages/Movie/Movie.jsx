@@ -4,9 +4,11 @@ import { useParams } from "react-router-dom";
 import { Button } from "../../components";
 
 export const Movie = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const [movie, setMovie] = useState(null);
+  const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -15,7 +17,11 @@ export const Movie = () => {
         const data = await fetchHomepage(
           `https://api.themoviedb.org/3/movie/${id}`
         );
+        const img = await fetchHomepage(
+          `https://api.themoviedb.org/3/movie/${id}/images`
+        );
         setMovie(data);
+        setImages(img.posters);
       } catch (error) {
         console.error("Error fetching movie:", error);
       } finally {
@@ -27,6 +33,26 @@ export const Movie = () => {
       fetchMovie();
     }
   }, [id]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % (images.length + 1));
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const slides = [
+    {
+      image: movie?.backdrop_path
+        ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
+        : null,
+    },
+    ...images.map((img) => ({
+      image: `https://image.tmdb.org/t/p/w500/${img.file_path}`,
+    })),
+  ];
+
   if (loading || movie === null) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -34,7 +60,7 @@ export const Movie = () => {
       </div>
     );
   }
-  console.log(movie);
+
   return (
     <main className="profile-page">
       <section className="relative block h-500-px">
@@ -42,8 +68,8 @@ export const Movie = () => {
           className="absolute top-0 w-full h-full bg-center bg-cover"
           style={{
             backgroundImage: `url("${
-              movie.backdrop_path !== null
-                ? `https://image.tmdb.org/t/p/w500/${movie.backdrop_path}`
+              slides[currentIndex] && slides[currentIndex].image
+                ? slides[currentIndex].image
                 : "https://imgs.search.brave.com/Up5OWJDsaXV9kx91YCA1K4hIg1C-I3nIlHl_6DiXM_k/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTEz/Mjc5MTk2Mi9waG90/by9oYXBweS1hdC10/aGUtbW92aWVzLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz1i/cU5RcnpQelhDV3p3/TkUwSDIyUU14dkxU/c1VJb0NVRWRUWWdF/U0JmYjZFPQ"
             }")`,
           }}
@@ -54,7 +80,7 @@ export const Movie = () => {
           ></span>
         </div>
         <div
-          className="top-auto bottom-0 left-0  right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+          className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
           style={{ transform: "translateZ(0px)" }}
         >
           <svg

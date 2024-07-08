@@ -44,7 +44,6 @@ export const Slideshow = () => {
       vote_count: movie.vote_count,
     }));
   }
-  console.log(slides.length);
 
   return loading || slides.length === 0 ? (
     <div className="relative w-full h-96 overflow-hidden rounded-md animate-pulse bg-gray-200">
