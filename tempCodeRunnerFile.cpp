@@ -3,15 +3,18 @@ using namespace std;
 
 int main()
 {
-    int n = 6 ;
-    for(int i = 0 ; i <= n ; ++i){
-        for(int j=0 ;j <= i ; ++j){
-            cout<<" "<<" ";
-        }    
-        for(int k=6-i ;k >= 0 ; --k){
-            cout<<"*"<<" ";
-        }
-        cout<<endl;
+    int mark ,count = 0;
+    for(int i=1;i<=5;i++){
+        cin >> mark;
+    if(mark>30){
+    cout<<"Invalid"<<endl;
+
     }
-return 0;
+    else if(mark>20){
+    count++;
+
+    }
+cout << count;
+    }
+    return 0;
 }

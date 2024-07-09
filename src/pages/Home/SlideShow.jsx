@@ -94,13 +94,13 @@ export const Slideshow = () => {
               </span>
             </div>
 
-            <div className="flex justify-between mt-[28%] w-full">
+            <div className="flex justify-between mt-[18%] w-full">
               <div className="w-1/2">
                 <div className="text-lg font-bold">
                   {slides[currentIndex].text}
                 </div>
                 <div className="text-sm mt-2">
-                  {slides[currentIndex].overview.slice(0, 100)}...
+                  {slides[currentIndex].overview.slice(0, 200)}...
                 </div>
               </div>
             </div>

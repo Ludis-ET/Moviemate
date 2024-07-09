@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Top } from "../../components/Right/Top";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const Header = () => {
 
   return (
     <div className="bg-transparent flex justify-between items-center h-20 overflow-hidden">
-      <form className="w-full" onSubmit={handleSearch}>
+      <form className="w-[75%]" onSubmit={handleSearch}>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only"
@@ -55,6 +56,7 @@ export const Header = () => {
           </button>
         </div>
       </form>
+      <Top />
     </div>
   );
 };

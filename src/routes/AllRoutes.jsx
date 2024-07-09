@@ -1,14 +1,15 @@
 import { Route, Routes } from "react-router-dom";
-import { Middle, Results, List, Movie } from "../pages";
+import { Middle, Results, List, Movie, MovieList } from "../pages";
 import { Header } from "../pages/Home/Header";
 
 export const AllRoutes = () => {
   return (
-    <div className="md:ml-52 h-screen md:w-[65%] px-20">
+    <div className="md:ml-52 h-screen md:w-[85%] px-20">
       <Header />
       <Routes>
         <Route path="/" exact element={<Middle />} />
         <Route path="/search" element={<Results />} />
+        <Route path="/movies" element={<MovieList />} />
         <Route path="/about-to" element={<List />} />
         <Route path="/:id/detail" element={<Movie />} />
         {/* <Route

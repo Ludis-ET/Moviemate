@@ -8,7 +8,7 @@ function App() {
     <AuthProvider>
       <SideBarLeft />
       <AllRoutes />
-      <SideBarRight />
+      {/* <SideBarRight /> */}
     </AuthProvider>
   );
 }
