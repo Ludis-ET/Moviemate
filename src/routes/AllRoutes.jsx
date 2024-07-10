@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import { Middle, Results, List, Movie, MovieList, TvList } from "../pages";
+import { Middle, Results, List, Movie, MovieList, TvList, Leaderboard } from "../pages";
 import { Header } from "../pages/Home/Header";
 
 export const AllRoutes = () => {
@@ -11,6 +11,7 @@ export const AllRoutes = () => {
         <Route path="/search" element={<Results />} />
         <Route path="/movies" element={<MovieList />} />
         <Route path="/tvs" element={<TvList />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/about-to" element={<List />} />
         <Route path="/:id/detail" element={<Movie />} />
         {/* <Route
