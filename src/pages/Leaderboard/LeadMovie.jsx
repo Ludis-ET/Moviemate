@@ -34,11 +34,11 @@ export const LeadMovie = () => {
   }
 
   return (
-    <div className="w-full h-screen py-8 mt-4 flex gap-8 flex-wrap overflow-y-scroll">
+    <div className=" py-8 mt-4 flex gap-8 flex-wrap w-full">
       {movies
         .filter((m, index) => m.userId === currentUser.uid)
-        .map((m) => (
-          <MovieCard key={m.id} movies={m} />
+        .map((m, index) => (
+          <MovieCard key={m.id} movies={m} rank={index} />
         ))}
     </div>
   );

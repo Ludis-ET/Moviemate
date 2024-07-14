@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React, { useRef } from "react";
 import {
   motion,
@@ -54,7 +55,8 @@ const Example = ({ movie }) => {
       }}
       className="relative h-96 w-72 rounded-xl bg-transparent"
     >
-      <div
+      <Link
+        to={`/${movie.id}/detail`}
         style={{
           transform: "translateZ(75px)",
           transformStyle: "preserve-3d",
@@ -62,10 +64,14 @@ const Example = ({ movie }) => {
         className="absolute inset-4 grid place-content-center rounded-xl overflow-hidden cursor-pointer bg-white shadow-lg"
       >
         <img
-          src={movie.poster_path ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}` : "https://via.placeholder.com/500x750?text=No+Image+Available"}
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+              : "https://via.placeholder.com/500x750?text=No+Image+Available"
+          }
           alt=""
         />
-      </div>
+      </Link>
     </motion.div>
   );
 };
