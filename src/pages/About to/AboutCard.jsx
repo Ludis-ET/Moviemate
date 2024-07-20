@@ -9,28 +9,30 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
-export const AboutCard = ({ movies }) => {
+export const AboutCard = ({ movieData, setMovies }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
   const { db, currentUser } = useAuth();
 
   const RemoveAboutTo = async () => {
+    setButtonLoading(true);
     try {
-      if (true) {
-        const q = query(
-          collection(db, "about-to"),
-          where("movieId", "==", Number(movie.id)),
-          where("userId", "==", currentUser.uid)
-        );
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach(async (doc) => {
-          await deleteDoc(doc.ref);
-        });
-        toast.success("Removed from About To successfully.");
-      }
+      const q = query(
+        collection(db, "about-to"),
+        where("movieId", "==", Number(movieData.movieId)),
+        where("userId", "==", currentUser.uid)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+      });
+      setMovies((prevMovies) =>
+        prevMovies.filter((item) => item.movieId !== movieData.movieId)
+      );
+      toast.success("Removed from About To successfully.");
     } catch (error) {
       toast.error("Failed to update About To.");
       console.error("Error updating About To:", error);
@@ -44,13 +46,13 @@ export const AboutCard = ({ movies }) => {
       setLoading(true);
       try {
         let data;
-        if (movies.type === "movie") {
+        if (movieData.type === "movie") {
           data = await fetchHomepage(
-            `https://api.themoviedb.org/3/movie/${movies.movieId}`
+            `https://api.themoviedb.org/3/movie/${movieData.movieId}`
           );
         } else {
           data = await fetchHomepage(
-            `https://api.themoviedb.org/3/tv/${movies.movieId}`
+            `https://api.themoviedb.org/3/tv/${movieData.movieId}`
           );
         }
         setMovie(data);
@@ -62,10 +64,10 @@ export const AboutCard = ({ movies }) => {
       }
     };
 
-    if (movies.movieId && movies.type) {
+    if (movieData.movieId && movieData.type) {
       fetchMovie();
     }
-  }, [movies.movieId, movies.type]);
+  }, [movieData.movieId, movieData.type]);
 
   return (
     <>
@@ -105,14 +107,14 @@ export const AboutCard = ({ movies }) => {
                 {movie.tagline}
               </p>
               <div className="text-white font-bold text-xl mb-2">
-                {movies.type === "tv" ? movie.name : movie.title}
+                {movieData.type === "tv" ? movie.name : movie.title}
               </div>
               <p className="text-grey-darker text-base min-h-32">
                 {movie.overview}
               </p>
             </div>
             <div className="flex items-center">
-              <div className="text-sm justify-between items-center w-full flex flex-wrap  gap-8">
+              <div className="text-sm justify-between items-center w-full flex flex-wrap gap-8">
                 <Button text={movie.vote_average.toFixed(1)} rate={true} />
                 <div className="flex gap-8">
                   <LikeButton />

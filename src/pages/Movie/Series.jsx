@@ -77,6 +77,8 @@ export const Series = () => {
       setButtonLoading(false);
     }
   };
+
+
   useEffect(() => {
     setLoading(true);
     const fetchMovie = async () => {
@@ -130,6 +132,7 @@ export const Series = () => {
       </div>
     );
   }
+
   return (
     <main className="profile-page">
       <Toaster />
@@ -285,7 +288,7 @@ aspect-square w-8 flex justify-center items-center text-yellow-700"
                     </tr>
                   </thead>
                   <tbody>
-                    {movie.seasons.slice(1).map((m) => (
+                    {movie.seasons.map((m) => (
                       <tr key={m.id}>
                         <td>
                           <div className="flex items-center gap-3">

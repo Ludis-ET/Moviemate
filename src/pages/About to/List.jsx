@@ -2,6 +2,9 @@ import { AboutCard } from "./AboutCard";
 import { useAuth } from "../../context/AuthContext";
 import { getDocs, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import F from "../../assets/about.svg";
+import { Footer } from "../../components";
 
 export const List = () => {
   const { db, currentUser } = useAuth();
@@ -25,7 +28,8 @@ export const List = () => {
     };
     getMovies();
   }, [db]);
-  if (loading || movies.length === 0) {
+
+  if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <span className="loading loading-ring w-56"></span>
@@ -33,13 +37,27 @@ export const List = () => {
     );
   }
 
+  if (movies.length === 0) {
+    return (
+      <div>
+        <div className="text-3xl text-white text-center">Add Something</div>
+        <div className="flex justify-center">
+          <img src={F} className="w-1/2 text-center self-center" alt="" />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full mt-4 flex gap-8 flex-wrap">
+      <Toaster />
+      <div>{movies.length} movies about to rate</div>
       {movies
         .filter((m) => m.userId === currentUser.uid)
         .map((m) => (
-          <AboutCard key={m.id} movies={m} />
+          <AboutCard key={m.id} movieData={m} setMovies={setMovies} />
         ))}
+        <Footer />
     </div>
   );
 };
