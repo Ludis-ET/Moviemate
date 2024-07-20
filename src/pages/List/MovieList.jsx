@@ -105,7 +105,6 @@ export const MovieList = () => {
       </div>
     );
   }
-
   return (
     <div>
       <h1>Now Playing Movies</h1>

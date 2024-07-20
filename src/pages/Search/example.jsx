@@ -56,7 +56,7 @@ const Example = ({ movie }) => {
       className="relative h-96 w-72 rounded-xl bg-transparent"
     >
       <Link
-        to={`/${movie.id}/detail`}
+        to={`/${movie.id}${movie.first_air_date ? "/tv/" : "/"}detail`}
         style={{
           transform: "translateZ(75px)",
           transformStyle: "preserve-3d",

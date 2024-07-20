@@ -5,3 +5,4 @@ export { Movie } from "./Movie/Movie";
 export { MovieList } from "./List/MovieList";
 export { TvList } from "./List/TvList";
 export { Leaderboard } from "./Leaderboard/Leaderboard";
+export { Series } from "./Movie/Series";
