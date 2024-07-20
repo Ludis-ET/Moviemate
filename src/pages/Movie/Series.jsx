@@ -27,21 +27,21 @@ export const Series = () => {
   const [isInAboutTo, setIsInAboutTo] = useState(false);
   const { db, currentUser } = useAuth();
 
-    useEffect(() => {
-      const checkAboutToStatus = async () => {
-        if (id && currentUser) {
-          const q = query(
-            collection(db, "about-to"),
-            where("movieId", "==", Number(id)),
-            where("userId", "==", currentUser.uid)
-          );
-          const querySnapshot = await getDocs(q);
-          setIsInAboutTo(!querySnapshot.empty);
-        }
-      };
+  useEffect(() => {
+    const checkAboutToStatus = async () => {
+      if (id && currentUser) {
+        const q = query(
+          collection(db, "about-to"),
+          where("movieId", "==", Number(id)),
+          where("userId", "==", currentUser.uid)
+        );
+        const querySnapshot = await getDocs(q);
+        setIsInAboutTo(!querySnapshot.empty);
+      }
+    };
 
-      checkAboutToStatus();
-    }, [id, currentUser, db]);
+    checkAboutToStatus();
+  }, [id, currentUser, db]);
 
   const addOrRemoveAboutTo = async () => {
     setButtonLoading(true);
@@ -230,11 +230,11 @@ export const Series = () => {
                 </div>
                 <div className="mb-2 flex flex-wrap gap-4 justify-center text-white mt-10">
                   {movie.genres.map((g) => (
-                    <button class="bg-red-950 text-red-400 border border-red-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
-                      <span class="bg-red-400 shadow-red-400 absolute -top-[150%] left-0 inline-flex w-80 h-80 rounded-full opacity-30 transition-all duration-500 group-hover:top-[25%]"></span>
-                      <span class="flex items-center gap-2 text-inherit transition group-hover:scale-90">
-                        <span class="relative -ml-2 inline-block h-3 w-3 rotate-45 rounded-sm bg-gradient-to-tr from-red-200 to-red-500 shadow-[0_0_4px_#0005,0_1px_2px_#0003,0_2px_4px_#0002] transition duration-500 group-hover:scale-125 group-hover:rotate-[225deg]"></span>
-                        <span class="transition-colors duration-200 group-hover:text-white">
+                    <button className="bg-red-950 text-red-400 border border-red-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                      <span className="bg-red-400 shadow-red-400 absolute -top-[150%] left-0 inline-flex w-80 h-80 rounded-full opacity-30 transition-all duration-500 group-hover:top-[25%]"></span>
+                      <span className="flex items-center gap-2 text-inherit transition group-hover:scale-90">
+                        <span className="relative -ml-2 inline-block h-3 w-3 rotate-45 rounded-sm bg-gradient-to-tr from-red-200 to-red-500 shadow-[0_0_4px_#0005,0_1px_2px_#0003,0_2px_4px_#0002] transition duration-500 group-hover:scale-125 group-hover:rotate-[225deg]"></span>
+                        <span className="transition-colors duration-200 group-hover:text-white">
                           {g.name}
                         </span>
                       </span>
@@ -254,7 +254,7 @@ export const Series = () => {
                   >
                     {buttonLoading ? (
                       <div
-                        class="loader border-t-2 rounded-full border-gray-500 bg-white animate-spin
+                        className="loader border-t-2 rounded-full border-gray-500 bg-white animate-spin
 aspect-square w-8 flex justify-center items-center text-yellow-700"
                       ></div>
                     ) : isInAboutTo ? (

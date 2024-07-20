@@ -20,15 +20,15 @@ export const Top = () => {
     <header className="text-center">
       {currentUser ? (
         <div>
-          <div class="flex items-center gap-4">
+          <div className="flex items-center gap-4">
             <img
-              class="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-full"
               src={currentUser.photoURL ? currentUser.photoURL : Avatar}
               alt=""
             />
-            <div class="font-medium dark:text-white">
+            <div className="font-medium dark:text-white">
               <div>{currentUser.displayName}</div>
-              <div class="text-sm text-gray-500 dark:text-gray-400">
+              <div className="text-sm text-gray-500 dark:text-gray-400">
                 Joined in{" "}
                 {formatDistanceToNow(currentUser.metadata.creationTime)} ago
               </div>

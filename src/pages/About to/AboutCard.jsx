@@ -1,11 +1,44 @@
 import { useState, useEffect } from "react";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
 import { Button, DeleteButton, LikeButton } from "../../components";
+import {
+  collection,
+  deleteDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+import { useAuth } from "../../context/AuthContext";
+import toast, { Toaster } from "react-hot-toast";
 
 export const AboutCard = ({ movies }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(movies);
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const { db, currentUser } = useAuth();
+
+  const RemoveAboutTo = async () => {
+    try {
+      if (true) {
+        const q = query(
+          collection(db, "about-to"),
+          where("movieId", "==", Number(movie.id)),
+          where("userId", "==", currentUser.uid)
+        );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach(async (doc) => {
+          await deleteDoc(doc.ref);
+        });
+        toast.success("Removed from About To successfully.");
+      }
+    } catch (error) {
+      toast.error("Failed to update About To.");
+      console.error("Error updating About To:", error);
+    } finally {
+      setButtonLoading(false);
+    }
+  };
+
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true);
@@ -72,16 +105,20 @@ export const AboutCard = ({ movies }) => {
                 {movie.tagline}
               </p>
               <div className="text-white font-bold text-xl mb-2">
-                {movies.type === 'tv' ? movie.name : movie.title}
+                {movies.type === "tv" ? movie.name : movie.title}
               </div>
-              <p className="text-grey-darker text-base min-h-32">{movie.overview}</p>
+              <p className="text-grey-darker text-base min-h-32">
+                {movie.overview}
+              </p>
             </div>
             <div className="flex items-center">
               <div className="text-sm justify-between items-center w-full flex flex-wrap  gap-8">
                 <Button text={movie.vote_average.toFixed(1)} rate={true} />
                 <div className="flex gap-8">
                   <LikeButton />
-                  <DeleteButton />
+                  <button onClick={RemoveAboutTo} disabled={buttonLoading}>
+                    <DeleteButton />
+                  </button>
                 </div>
               </div>
             </div>
