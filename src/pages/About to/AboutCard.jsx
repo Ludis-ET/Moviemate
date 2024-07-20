@@ -5,26 +5,35 @@ import { Button, DeleteButton, LikeButton } from "../../components";
 export const AboutCard = ({ movies }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  console.log(movies);
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true);
       try {
-        const data = await fetchHomepage(
-          `https://api.themoviedb.org/3/movie/${movies.movieId}`
-        );
+        let data;
+        if (movies.type === "movie") {
+          data = await fetchHomepage(
+            `https://api.themoviedb.org/3/movie/${movies.movieId}`
+          );
+        } else {
+          data = await fetchHomepage(
+            `https://api.themoviedb.org/3/tv/${movies.movieId}`
+          );
+        }
         setMovie(data);
       } catch (error) {
         console.error("Error fetching movie:", error);
+        setMovie(null);
       } finally {
         setLoading(false);
       }
     };
 
-    if (movies.movieId) {
+    if (movies.movieId && movies.type) {
       fetchMovie();
     }
-  }, [movies.movieId]);
+  }, [movies.movieId, movies.type]);
+
   return (
     <>
       {loading ? (
@@ -63,9 +72,9 @@ export const AboutCard = ({ movies }) => {
                 {movie.tagline}
               </p>
               <div className="text-white font-bold text-xl mb-2">
-                {movie.title}
+                {movies.type === 'tv' ? movie.name : movie.title}
               </div>
-              <p className="text-grey-darker text-base">{movie.overview}</p>
+              <p className="text-grey-darker text-base min-h-32">{movie.overview}</p>
             </div>
             <div className="flex items-center">
               <div className="text-sm justify-between items-center w-full flex flex-wrap  gap-8">

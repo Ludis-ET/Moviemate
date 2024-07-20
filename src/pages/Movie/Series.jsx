@@ -27,6 +27,22 @@ export const Series = () => {
   const [isInAboutTo, setIsInAboutTo] = useState(false);
   const { db, currentUser } = useAuth();
 
+    useEffect(() => {
+      const checkAboutToStatus = async () => {
+        if (id && currentUser) {
+          const q = query(
+            collection(db, "about-to"),
+            where("movieId", "==", Number(id)),
+            where("userId", "==", currentUser.uid)
+          );
+          const querySnapshot = await getDocs(q);
+          setIsInAboutTo(!querySnapshot.empty);
+        }
+      };
+
+      checkAboutToStatus();
+    }, [id, currentUser, db]);
+
   const addOrRemoveAboutTo = async () => {
     setButtonLoading(true);
     const currentTime = new Date();
