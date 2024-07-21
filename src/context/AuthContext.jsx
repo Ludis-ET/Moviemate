@@ -1,14 +1,8 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-
+import toast, { Toaster } from "react-hot-toast";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -44,14 +38,18 @@ export const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
-
   const signUpWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       setCurrentUser(user);
+      toast.success(
+        "Signed up with Google successfully! Welcome " + user.displayName
+      );
+      return user;
     } catch (error) {
+      toast.error(error.message);
       throw error;
     }
   };
@@ -60,7 +58,9 @@ export const AuthProvider = ({ children }) => {
     try {
       await auth.signOut();
       setCurrentUser(null);
+      toast.success("Signed out successfully");
     } catch (error) {
+      toast.error(error.message);
       throw error;
     }
   };
@@ -75,6 +75,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
+      <Toaster />
     </AuthContext.Provider>
   );
 };

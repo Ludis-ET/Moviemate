@@ -1,8 +1,7 @@
-// react hot toast
-import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import Avatar from "../../assets/avatar.jpg";
 import { formatDistanceToNow } from "date-fns";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Top = () => {
   const { currentUser, signUpWithGoogle, signOut } = useAuth();
@@ -10,12 +9,11 @@ export const Top = () => {
   const handleGoogleSignUp = async () => {
     try {
       await signUpWithGoogle();
-      alert("Signed up with Google successfully");
-      // Handle redirection or UI update
     } catch (error) {
-      alert(error.message);
+      // Error handling is already done in signUpWithGoogle
     }
   };
+
   return (
     <header className="text-center">
       {currentUser ? (
@@ -29,8 +27,11 @@ export const Top = () => {
             <div className="font-medium dark:text-white">
               <div>{currentUser.displayName}</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">
-                Joined in{" "}
-                {formatDistanceToNow(currentUser.metadata.creationTime)} ago
+                Joined{" "}
+                {formatDistanceToNow(
+                  new Date(currentUser.metadata.creationTime)
+                )}{" "}
+                ago
               </div>
             </div>
             <button className="btn btn-sm bg-red-600" onClick={signOut}>
@@ -54,6 +55,7 @@ export const Top = () => {
           </button>
         </div>
       )}
+      <Toaster />
     </header>
   );
 };

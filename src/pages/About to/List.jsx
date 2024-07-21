@@ -37,7 +37,10 @@ export const List = () => {
     );
   }
 
-  if (movies.length === 0) {
+  if (
+    movies.length === 0 ||
+    movies.filter((m) => m.userId === currentUser.uid).length === 0
+  ) {
     return (
       <div>
         <div className="text-3xl text-white text-center">Add Something</div>
@@ -51,13 +54,17 @@ export const List = () => {
   return (
     <div className="w-full mt-4 flex gap-8 flex-wrap">
       <Toaster />
-      <div>{movies.length} movies about to rate</div>
+      <div>
+        {movies.filter((m) => m.userId === currentUser.uid).length} movies about
+        to rate
+      </div>
+
       {movies
         .filter((m) => m.userId === currentUser.uid)
         .map((m) => (
           <AboutCard key={m.id} movieData={m} setMovies={setMovies} />
         ))}
-        <Footer />
+      <Footer />
     </div>
   );
 };
