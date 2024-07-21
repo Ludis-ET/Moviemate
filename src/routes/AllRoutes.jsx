@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Middle, Results, List, Movie, MovieList, TvList, Leaderboard, Series } from "../pages";
 import { Header } from "../pages/Home/Header";
+import { Rate } from "../pages/Forms/Rate";
 
 export const AllRoutes = () => {
   return (

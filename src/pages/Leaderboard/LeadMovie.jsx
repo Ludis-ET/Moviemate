@@ -8,7 +8,7 @@ export const LeadMovie = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const aboutRef = collection(db, "LeadMovie");
+  const aboutRef = collection(db, "leaderboard");
 
   useEffect(() => {
     const getMovies = async () => {

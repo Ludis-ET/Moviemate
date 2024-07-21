@@ -10,12 +10,14 @@ import {
 } from "firebase/firestore";
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
+import { Rate } from "../Forms/Rate";
 
-export const AboutCard = ({ movieData, setMovies }) => {
+export const AboutCard = ({ movieData, onRemove }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(false);
   const { db, currentUser } = useAuth();
+  const [show, setShow] = useState(false);
 
   const RemoveAboutTo = async () => {
     setButtonLoading(true);
@@ -29,10 +31,12 @@ export const AboutCard = ({ movieData, setMovies }) => {
       querySnapshot.forEach(async (doc) => {
         await deleteDoc(doc.ref);
       });
-      setMovies((prevMovies) =>
-        prevMovies.filter((item) => item.movieId !== movieData.movieId)
-      );
+
+      // Notify the parent component to remove the movie from the list
+      onRemove(movieData.id);
+
       toast.success("Removed from About To successfully.");
+      setShow(false); // Close the Rate component
     } catch (error) {
       toast.error("Failed to update About To.");
       console.error("Error updating About To:", error);
@@ -69,8 +73,14 @@ export const AboutCard = ({ movieData, setMovies }) => {
     }
   }, [movieData.movieId, movieData.type]);
 
+  const last = () => {
+    setShow(false);
+    RemoveAboutTo();
+  };
+
   return (
     <>
+      {show && <Rate m={movie} onClose={last} />}
       {loading ? (
         <div className="w-full flex">
           <div
@@ -117,7 +127,9 @@ export const AboutCard = ({ movieData, setMovies }) => {
               <div className="text-sm justify-between items-center w-full flex flex-wrap gap-8">
                 <Button text={movie.vote_average.toFixed(1)} rate={true} />
                 <div className="flex gap-8">
-                  <LikeButton />
+                  <button onClick={() => setShow(!show)}>
+                    <LikeButton />
+                  </button>
                   <button onClick={RemoveAboutTo} disabled={buttonLoading}>
                     <DeleteButton />
                   </button>

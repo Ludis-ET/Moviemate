@@ -29,6 +29,13 @@ export const List = () => {
     getMovies();
   }, [db]);
 
+  // Function to remove a movie from the list
+  const handleRemoveMovie = (movieId) => {
+    setMovies((prevMovies) =>
+      prevMovies.filter((movie) => movie.id !== movieId)
+    );
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
@@ -62,7 +69,7 @@ export const List = () => {
       {movies
         .filter((m) => m.userId === currentUser.uid)
         .map((m) => (
-          <AboutCard key={m.id} movieData={m} setMovies={setMovies} />
+          <AboutCard key={m.id} movieData={m} onRemove={handleRemoveMovie} />
         ))}
       <Footer />
     </div>
