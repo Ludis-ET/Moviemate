@@ -36,7 +36,9 @@ export const Rate = ({ m, onClose }) => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    if (!validateInput(value)) {
+    const numberValue = Number(value);
+
+    if (!validateInput(numberValue)) {
       toast.error(
         `Invalid value for ${name}. Please enter a number between 0 and 10.`
       );
@@ -45,25 +47,25 @@ export const Rate = ({ m, onClose }) => {
 
     setRatings({
       ...ratings,
-      [name]: value,
+      [name]: numberValue,
     });
   };
 
+
   const submitForm = async () => {
-    setLoading(true); // Set loading to true when submission starts
+    setLoading(true);
     try {
-      // Save the ratings to the "leaderboard" collection
       await addDoc(collection(db, "leaderboard"), {
         ...ratings,
+        other:m.vote_average,
         movieId: m.id,
         time: new Date(),
-        type: "movie",
+        type: m.first_air_date ? "tv" : "movie",
         userId: currentUser.uid,
       });
 
       toast.success("Ratings saved successfully!");
 
-      // Remove the entry from the "about-to" collection
       const q = query(
         collection(db, "about-to"),
         where("movieId", "==", Number(m.id)),
@@ -76,14 +78,13 @@ export const Rate = ({ m, onClose }) => {
 
       toast.success('Entry removed from the "about-to" collection!');
 
-      // Call the onClose callback to close the Rate component
       if (onClose) {
         onClose();
       }
     } catch (error) {
       toast.error(`Error: ${error.message}`);
     } finally {
-      setLoading(false); // Set loading to false when submission completes
+      setLoading(false);
     }
   };
 
@@ -93,7 +94,6 @@ export const Rate = ({ m, onClose }) => {
         <p>{m.first_air_date ? m.name : m.title}</p>
         <div className="mt-8 mb-4 ml-[-80px] absolute w-[700px] flex flex-wrap gap-20">
           <div className="flex flex-col gap-4">
-            {/* Rating input fields */}
             <div className="inputBox">
               <input
                 placeholder="rate here..."
@@ -161,7 +161,6 @@ export const Rate = ({ m, onClose }) => {
             </div>
           </div>
           <div className="flex flex-col gap-4">
-            {/* Additional rating input fields */}
             <div className="inputBox">
               <input
                 placeholder="rate here..."

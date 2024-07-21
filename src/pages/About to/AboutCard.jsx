@@ -11,6 +11,7 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import toast from "react-hot-toast";
 import { Rate } from "../Forms/Rate";
+import { Link } from "react-router-dom";
 
 export const AboutCard = ({ movieData, onRemove }) => {
   const [movie, setMovie] = useState(null);
@@ -104,21 +105,27 @@ export const AboutCard = ({ movieData, onRemove }) => {
         </div>
       ) : (
         <div className="w-full lg:flex">
-          <div
+          <Link
+            to={`/${movie.id}${movieData.type === "tv" ? "/tv/" : "/"}detail`}
             className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
             }}
             title={movie.title}
-          ></div>
+          ></Link>
           <div className="text-white bg-transparent rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div className="mb-8">
               <p className="text-sm text-grey-dark flex items-center">
                 {movie.tagline}
               </p>
-              <div className="text-white font-bold text-xl mb-2">
+              <Link
+                to={`/${movie.id}${
+                  movieData.type === "tv" ? "/tv/" : "/"
+                }detail`}
+                className="text-white font-bold text-xl mb-2"
+              >
                 {movieData.type === "tv" ? movie.name : movie.title}
-              </div>
+              </Link>
               <p className="text-grey-darker text-base min-h-32">
                 {movie.overview}
               </p>
@@ -128,7 +135,7 @@ export const AboutCard = ({ movieData, onRemove }) => {
                 <Button text={movie.vote_average.toFixed(1)} rate={true} />
                 <div className="flex gap-8">
                   <button onClick={() => setShow(!show)}>
-                    <LikeButton />
+                    <LikeButton text='Rate Now' />
                   </button>
                   <button onClick={RemoveAboutTo} disabled={buttonLoading}>
                     <DeleteButton />

@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
 import { Link } from "react-router-dom";
 import { Button, LikeButton, Tool } from "../../components";
+import { Rate } from "../Forms/Rate";
 
 export const MovieCard = ({ movies, rank }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [expanded, setExpanded] = useState(false); // State to manage expanded/collapsed view
+  const [expanded, setExpanded] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -29,18 +31,19 @@ export const MovieCard = ({ movies, rank }) => {
   }, [movies.movieId]);
 
   let average =
-    (movies.Cinematography +
-      movies.Characters +
-      movies.Climax +
-      movies.Ending +
-      movies.Overall +
-      movies.Starting +
-      movies.Visual +
-      movies.Plot +
-      movies.Soundtrack +
-      movies.Story +
-      movies.other) /
-    11;
+    (movies.cinematography +
+      movies.characters +
+      movies.climax +
+      movies.ending +
+      movies.overall +
+      movies.starting +
+      movies.visual +
+      movies.plot +
+      movies.soundtrack +
+      movies.other +
+      movies.story +
+      movies.characterDevelopment) /
+    12;
 
   // Toggle function for expanding/collapsing
   const toggleExpand = () => {
@@ -49,6 +52,7 @@ export const MovieCard = ({ movies, rank }) => {
 
   return (
     <>
+    {movie && show &&<Rate m={movie} />}
       {loading ? (
         <div className="w-full flex">
           <div
@@ -82,7 +86,7 @@ export const MovieCard = ({ movies, rank }) => {
             title={movie?.title}
           ></div>
 
-          <div className="text-white bg-transparent rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          <div className="text-white  bg-transparent rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div className="mb-8">
               <p className="text-sm text-grey-dark flex items-center">
                 {movie.tagline}
@@ -103,55 +107,59 @@ export const MovieCard = ({ movies, rank }) => {
                   </div>
                 </div>
               </div>
-              <p className="text-grey-darker text-base">
+              <p className="text-grey-darker min-h-40  text-base">
                 {movie.overview}
 
                 {/* Conditionally render tools based on expanded state */}
                 {expanded && (
                   <div className="w-full flex flex-wrap gap-1 m-4">
                     <Tool
-                      but={`Cinematography : ${movies.Cinematography}`}
+                      but={`Cinematography : ${movies.cinematography}`}
                       text="The visual appeal and camera work of the movie/TV series."
                     />
                     <Tool
-                      but={`Story : ${movies.Story}`}
+                      but={`Story : ${movies.story}`}
                       text="How engaging and well-written was the story?"
                     />
                     <Tool
-                      but={`Plot : ${movies.Plot}`}
+                      but={`Character Development : ${movies.characterDevelopment}`}
+                      text="the character arc?"
+                    />
+                    <Tool
+                      but={`Plot : ${movies.plot}`}
                       text="Was the sequence of events exciting and coherent?"
                     />
                     <Tool
-                      but={`Ending : ${movies.Ending}`}
+                      but={`Ending : ${movies.ending}`}
                       text="How satisfying was the ending?"
                     />
                     <Tool
-                      but={`Starting : ${movies.Starting}`}
+                      but={`Starting : ${movies.starting}`}
                       text="Did the beginning capture your interest?"
                     />
                     <Tool
-                      but={`Climax : ${movies.Climax}`}
+                      but={`Climax : ${movies.climax}`}
                       text="Rate the most intense moment of the story."
                     />
                     <Tool
-                      but={`Characters : ${movies.Characters}`}
+                      but={`Characters : ${movies.characters}`}
                       text="Were the characters well-developed and believable?"
                     />
                     <Tool
-                      but={`Soundtrack : ${movies.Soundtrack}`}
+                      but={`Soundtrack : ${movies.soundtrack}`}
                       text="How well did the music enhance the scenes?"
                     />
                     <Tool
-                      but={`Visual Effects : ${movies.Visual}`}
+                      but={`Visual Effects : ${movies.visual}`}
                       text="How realistic and well-integrated were the visual effects?"
                     />
                     <Tool
-                      but={`Overall Rating : ${movies.Overall}`}
+                      but={`Overall Rating : ${movies.overall}`}
                       text="Your overall score for the movie/TV series"
                     />
                     <Tool
-                      but={`Other People Rating : ${movies.other}`}
-                      text="This is others rating."
+                      but={`Other People's Rating : ${movies.other}`}
+                      text="This is others' rating."
                     />
                   </div>
                 )}
@@ -169,9 +177,9 @@ export const MovieCard = ({ movies, rank }) => {
               </button>
             </div>
             <div className="flex items-center">
-              <div className="text-sm justify-between items-center w-full flex flex-wrap  gap-8">
+              <div className="text-sm justify-between items-center w-full flex flex-wrap gap-8">
                 <div className="flex gap-8">
-                  <LikeButton />
+                  <LikeButton text='Rerate Now' />
                 </div>
                 <Button text={average.toFixed(1)} rate={true} />
               </div>
