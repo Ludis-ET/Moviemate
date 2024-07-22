@@ -97,10 +97,14 @@ export const MovieList = () => {
 
   if (error) {
     return (
-      <div>
+      <div className="mt-[50%] xl:mt-24">
         <div>Error: {error}</div>
         <div className="flex justify-center">
-          <img src={F} className="w-1/2 text-center self-center" alt="Error" />
+          <img
+            src={F}
+            className="xl:w-1/2 text-center self-center"
+            alt="Error"
+          />
         </div>
       </div>
     );
@@ -120,11 +124,7 @@ export const MovieList = () => {
         )}
       </div>
       <div className="w-full flex justify-center">
-        {movies.length > 0 && (
-          <div className="join">
-            {renderPagination()}
-          </div>
-        )}
+        {movies.length > 0 && <div className="join">{renderPagination()}</div>}
       </div>
       <Footer />
     </div>

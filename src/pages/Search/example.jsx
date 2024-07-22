@@ -53,7 +53,7 @@ const Example = ({ movie }) => {
         transformStyle: "preserve-3d",
         transform,
       }}
-      className="relative h-96 w-72 rounded-xl bg-transparent"
+      className="relative h-[30rem] w-[21rem] rounded-xl bg-transparent"
     >
       <Link
         to={`/${movie.id}${movie.first_air_date ? "/tv/" : "/"}detail`}

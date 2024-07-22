@@ -107,12 +107,23 @@ export const AboutCard = ({ movieData, onRemove }) => {
         <div className="w-full lg:flex">
           <Link
             to={`/${movie.id}${movieData.type === "tv" ? "/tv/" : "/"}detail`}
-            className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+            className="h-48 xl:block hidden lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
             }}
             title={movie.title}
           ></Link>
+          <Link
+            to={`/${movie.id}${movieData.type === "tv" ? "/tv/" : "/"}detail`}
+            className="w-full xl:hidden justify-end mb-[-100px] flex"
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              alt=""
+              className="h-80 z-[5]"
+            />
+          </Link>
+
           <div className="text-white bg-transparent rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div className="mb-8">
               <p className="text-sm text-grey-dark flex items-center">

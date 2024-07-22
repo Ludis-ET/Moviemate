@@ -47,10 +47,10 @@ export const List = () => {
 
   if (!currentUser) {
     return (
-      <div>
+      <div className="mt-[50%] xl:mt-24">
         <div className="text-3xl text-white text-center">Login First</div>
         <div className="flex justify-center">
-          <img src={L} className="w-1/2 text-center self-center" alt="" />
+          <img src={L} className="xl:w-1/2 text-center self-center" alt="" />
         </div>
       </div>
     );
@@ -61,10 +61,10 @@ export const List = () => {
     movies.filter((m) => m.userId === currentUser.uid).length === 0
   ) {
     return (
-      <div>
+      <div className="mt-[50%] xl:mt-24">
         <div className="text-3xl text-white text-center">Add Something</div>
         <div className="flex justify-center">
-          <img src={F} className="w-1/2 text-center self-center" alt="" />
+          <img src={F} className="xl:w-1/2 text-center self-center" alt="" />
         </div>
       </div>
     );
