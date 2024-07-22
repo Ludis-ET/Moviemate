@@ -24,7 +24,7 @@ export const Top = () => {
               src={currentUser.photoURL ? currentUser.photoURL : Avatar}
               alt=""
             />
-            <div className="font-medium dark:text-white">
+            <div className="font-medium xl:block hidden dark:text-white">
               <div>{currentUser.displayName}</div>
               <div className="text-sm text-gray-500 dark:text-gray-400">
                 Joined{" "}

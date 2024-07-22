@@ -70,7 +70,7 @@ export const Slideshow = () => {
       </div>
     </div>
   ) : (
-    <div className="relative w-full h-[40rem] overflow-hidden rounded-md">
+    <div className="relative w-full h-[30rem] xl:h-[40rem] overflow-hidden rounded-md">
       <Link to={`${slides[currentIndex].id}/detail`}>
         <img
           src={slides[currentIndex].image}
@@ -79,7 +79,7 @@ export const Slideshow = () => {
         />
         <div className="absolute inset-0 w-full h-full flex justify-between items-end">
           <div className="w-full h-full bg-gradient-to-t from-black/70 to-transparent p-4 text-white">
-            <div className="w-1/2 flex gap-2">
+            <div className="hidden xl:block w-1/2 xl:flex gap-2">
               <span className="rounded-lg bg-gradient-to-t from-[#e0324b] to-transparent backdrop-blur-lg p-1 text-white">
                 {format(
                   new Date(slides[currentIndex].release_date),
@@ -94,13 +94,16 @@ export const Slideshow = () => {
               </span>
             </div>
 
-            <div className="flex justify-between mt-[40vh] w-full">
+            <div className="flex justify-between mt-[18rem] xl:mt-[40vh] w-full">
               <div className="w-1/2">
-                <div className="text-[50px] font-bold">
+                <div className="xl:text-[50px] text-[20px] font-bold">
                   {slides[currentIndex].text}
                 </div>
-                <div className="text-sm mt-2">
+                <div className="text-sm mt-2 xl:block hidden">
                   {slides[currentIndex].overview.slice(0, 400)}...
+                </div>
+                <div className="text-sm mt-2 xl:hidden block">
+                  {slides[currentIndex].overview.slice(0, 100)}...
                 </div>
               </div>
             </div>

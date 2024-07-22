@@ -5,7 +5,7 @@ import { Rate } from "../pages/Forms/Rate";
 
 export const AllRoutes = () => {
   return (
-    <div className="md:ml-52 h-screen md:w-[85%] px-20">
+    <div className="ml-0 xl:ml-52 h-screen w-full xl:w-[85%] px-4 md:px-8 lg:px-20">
       <Header />
       <Routes>
         <Route path="/" exact element={<Middle />} />

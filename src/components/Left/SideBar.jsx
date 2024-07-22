@@ -17,7 +17,7 @@ export const SideBarLeft = () => {
         data-drawer-toggle="cta-button-sidebar"
         aria-controls="cta-button-sidebar"
         type="button"
-        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg xl:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
       >
         <span className="sr-only">Open sidebar</span>
         <svg
@@ -39,10 +39,27 @@ export const SideBarLeft = () => {
         id="cta-button-sidebar"
         className={`fixed top-0 left-0 z-40 w-64 h-screen transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } bg-white bg-opacity-50 dark:bg-gray-800 dark:bg-opacity-50 sm:translate-x-0 transition-transform duration-300 ease-in-out`}
+        }  bg-[#e0324b]  xl:bg-transparent xl:translate-x-0 transition-transform duration-300 ease-in-out`}
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
+          <button
+            onClick={toggleSidebar}
+            className="absolute top-4 right-4 text-gray-500 dark:text-gray-400"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fillRule="evenodd"
+                d="M6 4a1 1 0 011.707-.707l5 5a1 1 0 010 1.414l-5 5A1 1 0 016 14V4z"
+                clipRule="evenodd"
+              ></path>
+            </svg>
+          </button>
           <Link to="/" className="flex items-center ps-2.5 mb-5">
             <img src={Logo} className="h-6 me-3 sm:h-7" alt="Flowbite Logo" />
             <span
@@ -57,6 +74,7 @@ export const SideBarLeft = () => {
             <li>
               <Link
                 to="/"
+                onClick={toggleSidebar}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <i className="fa fa-home"></i>
@@ -66,6 +84,7 @@ export const SideBarLeft = () => {
             <li>
               <Link
                 to="/about-to"
+                onClick={toggleSidebar}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <i className="fa-solid fa-umbrella-beach"></i>
@@ -75,6 +94,7 @@ export const SideBarLeft = () => {
             <li>
               <Link
                 to="/movies"
+                onClick={toggleSidebar}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <i className="fa-solid fa-film"></i>
@@ -84,6 +104,7 @@ export const SideBarLeft = () => {
             <li>
               <Link
                 to="/tvs"
+                onClick={toggleSidebar}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <i className="fa-solid fa-tv"></i>
@@ -93,34 +114,13 @@ export const SideBarLeft = () => {
             <li>
               <Link
                 to="/leaderboard"
+                onClick={toggleSidebar}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <i className="fa-brands fa-usps"></i>
                 <span className="ms-3">LeaderBoard</span>
               </Link>
             </li>
-            {/* <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <span className="flex-1 ms-3 whitespace-nowrap">About to</span>
-                <span className="inline-flex items-center justify-center px-2 ms-3 text-sm font-medium text-gray-800 bg-gray-100 rounded-full dark:bg-gray-700 dark:text-gray-300">
-                  Pro
-                </span>
-              </a>
-            </li> */}
-            {/* <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-              >
-                <span className="flex-1 ms-3 whitespace-nowrap">Inbox</span>
-                <span className="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                  3
-                </span>
-              </a>
-            </li> */}
           </ul>
           <div
             id="dropdown-cta"
@@ -137,7 +137,6 @@ export const SideBarLeft = () => {
               as the project evolves. Stay tuned for future enhancements and
               improvements!
             </p>
-
           </div>
         </div>
       </aside>
