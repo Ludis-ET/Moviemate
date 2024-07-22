@@ -109,14 +109,22 @@ export const MovieCard = ({ movies, rank, type, isAboutCard }) => {
         <div className="w-full lg:flex">
           <Link
             to={`/${movie.id}${type === "tv" ? "/tv/" : "/"}detail`}
-            className="h-48 lg:h-auto lg:w-64 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+            className="h-48 xl:block hidden lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
             style={{
-              backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie?.poster_path})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
+              backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
             }}
-            title={type === "movie" ? movie.title : movie.name}
+            title={movie.title}
           ></Link>
+          <Link
+            to={`/${movie.id}${type === "tv" ? "/tv/" : "/"}detail`}
+            className="w-full xl:hidden justify-end mb-[-100px] flex"
+          >
+            <img
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              alt=""
+              className="h-80 z-[1]"
+            />
+          </Link>
 
           <div className="text-white  bg-transparent rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div className="mb-8">
@@ -125,7 +133,7 @@ export const MovieCard = ({ movies, rank, type, isAboutCard }) => {
               </p>
               <div className="text-white relative w-full flex justify-between font-bold text-xl mb-2">
                 {type === "movie" ? movie.title : movie.name}
-                <div className="flex absolute right-0 items-center space-x-2">
+                <div className="flex absolute right-0 z-[5] items-center space-x-2">
                   <div className="relative">
                     {/* Butterfly Wings */}
                     <div className="absolute top-0 left-0 bg-[#000] h-8 w-8 rounded-full transform -translate-x-2 -translate-y-2"></div>
@@ -211,7 +219,7 @@ export const MovieCard = ({ movies, rank, type, isAboutCard }) => {
             <div className="flex items-center">
               <div className="text-sm justify-between items-center w-full flex flex-wrap gap-8">
                 <div className="flex gap-8">
-                  <button onClick={handleRateClick}>
+                  <button onClick={handleRateClick} >
                     <LikeButton text="Rerate Now" />
                   </button>
                 </div>

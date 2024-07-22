@@ -91,7 +91,9 @@ export const MovieList = () => {
 
   if (loading) {
     return (
-      <span className="loading absolute top-[30%] left-[40%] loading-ring w-56"></span>
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-ring w-56"></span>
+      </div>
     );
   }
 

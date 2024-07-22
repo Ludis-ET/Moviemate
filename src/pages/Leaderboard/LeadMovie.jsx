@@ -3,7 +3,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { MovieCard } from "./MovieCard";
 import F from "../../assets/rate.svg";
-import './refresh.css'
+import "./refresh.css";
 
 export const LeadMovie = () => {
   const { db, currentUser } = useAuth();
@@ -20,7 +20,9 @@ export const LeadMovie = () => {
         const data = await getDocs(aboutRef);
         const res = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 
-        const filteredMovies = res.filter((m) => m.userId === currentUser.uid && m.type === 'movie');
+        const filteredMovies = res.filter(
+          (m) => m.userId === currentUser.uid && m.type === "movie"
+        );
 
         const sortedMovies = filteredMovies
           .map((movie) => {
@@ -91,13 +93,17 @@ export const LeadMovie = () => {
 
   return (
     <div className="py-8 mt-4 flex gap-8 flex-wrap w-full">
-      <button type="button" class="button outline-none" onClick={() => setRefresh(!refresh)}>
+      <button
+        type="button"
+        className="button outline-none"
+        onClick={() => setRefresh(!refresh)}
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
           fill="currentColor"
-          class="bi bi-arrow-repeat"
+          className="bi bi-arrow-repeat"
           viewBox="0 0 16 16"
         >
           <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>

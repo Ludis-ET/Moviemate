@@ -138,9 +138,31 @@ export const Rate = ({ m, onClose }) => {
 
   return (
     <>
-      <div className="subscribe">
-        <p>{m.first_air_date ? m.name : m.title}</p>
-        <div className="mt-8 mb-4 ml-[-80px] absolute w-[700px] flex flex-wrap gap-20">
+      <div className="subscribe xl:left-[40%]">
+        <div className="flex justify-between">
+          <p>{m.first_air_date ? m.name : m.title}</p>
+          <button
+            className=" bg-red-600 text-white p-2 rounded-full hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500"
+            onClick={onClose}
+            aria-label="Cancel"
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <div className="mt-8 mb-4  xl:ml-[-80px] absolute w-[700px] flex flex-wrap gap-20">
           <div className="flex flex-col gap-4">
             <div className="inputBox">
               <input
@@ -276,7 +298,7 @@ export const Rate = ({ m, onClose }) => {
             </div>
           </div>
         </div>
-        <div className="mt-[95%] font-bold">
+        <div className="xl:mt-[95%] mt-[125%] font-bold">
           It has a global rating of {m.vote_average.toFixed(1)} / 10, this may
           affect your rating. <br />
           <div className="inputBox mt-4">

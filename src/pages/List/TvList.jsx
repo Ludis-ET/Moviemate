@@ -103,16 +103,22 @@ export const TvList = () => {
 
   if (loading) {
     return (
-      <span className="loading absolute top-[30%] left-[40%] loading-ring w-56"></span>
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-ring w-56"></span>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <div>
+      <div className="mt-[50%] xl:mt-24">
         <div>Error: {error}</div>
         <div className="flex justify-center">
-          <img src={F} className="w-1/2 text-center self-center" alt="Error" />
+          <img
+            src={F}
+            className="xl:w-1/2 text-center self-center"
+            alt="Error"
+          />
         </div>
       </div>
     );

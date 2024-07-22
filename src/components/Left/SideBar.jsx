@@ -34,6 +34,12 @@ export const SideBarLeft = () => {
           ></path>
         </svg>
       </button>
+      {!isOpen && <span
+        className="self-center xl:hidden text-3xl font-semibold whitespace-nowrap dark:text-white"
+        style={{ fontFamily: "Lobster, cursive" }}
+      >
+        Moviemate
+      </span>}
 
       <aside
         id="cta-button-sidebar"
