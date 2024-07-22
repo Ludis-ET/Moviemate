@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { fetchHomepage } from "../../hooks/fetchHomepage";
-import { Link } from "react-router-dom";
 import { Button, LikeButton, Tool } from "../../components";
 import { Rate } from "../Forms/Rate";
+import { Link } from "react-router-dom";
 
-export const MovieCard = ({ movies, rank }) => {
+export const MovieCard = ({ movies, rank, type, isAboutCard }) => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState(false);
-  const [show, setShow] = useState(false);
+  const [showRate, setShowRate] = useState(false);
 
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true);
       try {
         const data = await fetchHomepage(
-          `https://api.themoviedb.org/3/movie/${movies.movieId}`
+          `https://api.themoviedb.org/3/${type === 'movie' ? "movie" : "tv"}/${movies.movieId}`
         );
         setMovie(data);
       } catch (error) {
@@ -30,29 +30,60 @@ export const MovieCard = ({ movies, rank }) => {
     }
   }, [movies.movieId]);
 
-  let average =
-    (movies.cinematography +
-      movies.characters +
-      movies.climax +
-      movies.ending +
-      movies.overall +
-      movies.starting +
-      movies.visual +
-      movies.plot +
-      movies.soundtrack +
-      movies.other +
-      movies.story +
-      movies.characterDevelopment) /
-    12;
+  // Calculate average rating
+  const calculateAverageRating = () => {
+    const {
+      cinematography = 0,
+      characters = 0,
+      climax = 0,
+      ending = 0,
+      overall = 0,
+      starting = 0,
+      visual = 0,
+      plot = 0,
+      soundtrack = 0,
+      story = 0,
+      characterDevelopment = 0,
+      other = 0,
+    } = movies;
+
+    return (
+      (cinematography +
+        characters +
+        climax +
+        ending +
+        overall +
+        starting +
+        visual +
+        plot +
+        soundtrack +
+        story +
+        characterDevelopment +
+        other) /
+      12
+    ).toFixed(1);
+  };
+
+  const average = calculateAverageRating();
 
   // Toggle function for expanding/collapsing
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
 
+  const handleRateClick = () => {
+    setShowRate(true);
+  };
+
+  const handleCloseRate = () => {
+    setShowRate(false);
+  };
+
   return (
     <>
-    {movie && show &&<Rate m={movie} />}
+      {showRate && (
+        <Rate m={movie} onClose={handleCloseRate} isAboutCard={isAboutCard} />
+      )}
       {loading ? (
         <div className="w-full flex">
           <div
@@ -76,15 +107,16 @@ export const MovieCard = ({ movies, rank }) => {
         </div>
       ) : (
         <div className="w-full lg:flex">
-          <div
+          <Link
+            to={`/${movie.id}${type === "tv" ? "/tv/" : "/"}detail`}
             className="h-48 lg:h-auto lg:w-64 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie?.poster_path})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
-            title={movie?.title}
-          ></div>
+            title={type === "movie" ? movie.title : movie.name}
+          ></Link>
 
           <div className="text-white  bg-transparent rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
             <div className="mb-8">
@@ -92,7 +124,7 @@ export const MovieCard = ({ movies, rank }) => {
                 {movie.tagline}
               </p>
               <div className="text-white relative w-full flex justify-between font-bold text-xl mb-2">
-                {movie.title}
+                {type === "movie" ? movie.title : movie.name}
                 <div className="flex absolute right-0 items-center space-x-2">
                   <div className="relative">
                     {/* Butterfly Wings */}
@@ -179,9 +211,11 @@ export const MovieCard = ({ movies, rank }) => {
             <div className="flex items-center">
               <div className="text-sm justify-between items-center w-full flex flex-wrap gap-8">
                 <div className="flex gap-8">
-                  <LikeButton text='Rerate Now' />
+                  <button onClick={handleRateClick}>
+                    <LikeButton text="Rerate Now" />
+                  </button>
                 </div>
-                <Button text={average.toFixed(1)} rate={true} />
+                <Button text={average} rate={true} />
               </div>
             </div>
           </div>

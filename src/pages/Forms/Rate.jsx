@@ -1,12 +1,14 @@
 import "./rate.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   collection,
   addDoc,
+  updateDoc,
   deleteDoc,
   query,
   where,
   getDocs,
+  doc,
 } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
 import { useAuth } from "../../context/AuthContext";
@@ -35,7 +37,6 @@ export const Rate = ({ m, onClose }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     const numberValue = Number(value);
 
     if (!validateInput(numberValue)) {
@@ -51,28 +52,46 @@ export const Rate = ({ m, onClose }) => {
     });
   };
 
-
   const submitForm = async () => {
     setLoading(true);
     try {
-      await addDoc(collection(db, "leaderboard"), {
-        ...ratings,
-        other:m.vote_average,
-        movieId: m.id,
-        time: new Date(),
-        type: m.first_air_date ? "tv" : "movie",
-        userId: currentUser.uid,
-      });
-
-      toast.success("Ratings saved successfully!");
-
       const q = query(
+        collection(db, "leaderboard"),
+        where("movieId", "==", m.id),
+        where("userId", "==", currentUser.uid)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        // Document exists, update it
+        const docId = querySnapshot.docs[0].id;
+        const docRef = doc(db, "leaderboard", docId);
+        await updateDoc(docRef, {
+          ...ratings,
+          other: m.vote_average,
+          time: new Date(),
+        });
+        toast.success("Ratings updated successfully!");
+      } else {
+        // Document does not exist, add new
+        await addDoc(collection(db, "leaderboard"), {
+          ...ratings,
+          other: m.vote_average,
+          movieId: m.id,
+          time: new Date(),
+          type: m.first_air_date ? "tv" : "movie",
+          userId: currentUser.uid,
+        });
+        toast.success("Ratings saved successfully!");
+      }
+
+      const aboutToQuery = query(
         collection(db, "about-to"),
         where("movieId", "==", Number(m.id)),
         where("userId", "==", currentUser.uid)
       );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach(async (doc) => {
+      const aboutToSnapshot = await getDocs(aboutToQuery);
+      aboutToSnapshot.forEach(async (doc) => {
         await deleteDoc(doc.ref);
       });
 
@@ -87,6 +106,35 @@ export const Rate = ({ m, onClose }) => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchExistingRating = async () => {
+      const q = query(
+        collection(db, "leaderboard"),
+        where("movieId", "==", m.id),
+        where("userId", "==", currentUser.uid)
+      );
+      const querySnapshot = await getDocs(q);
+      if (!querySnapshot.empty) {
+        const docData = querySnapshot.docs[0].data();
+        setRatings({
+          characters: docData.characters || 0,
+          cinematography: docData.cinematography || 0,
+          climax: docData.climax || 0,
+          starting: docData.starting || 0,
+          ending: docData.ending || 0,
+          soundtrack: docData.soundtrack || 0,
+          plot: docData.plot || 0,
+          story: docData.story || 0,
+          visual: docData.visual || 0,
+          characterDevelopment: docData.characterDevelopment || 0,
+          overall: docData.overall || 0,
+        });
+      }
+    };
+
+    fetchExistingRating();
+  }, [m.id, currentUser.uid, db]);
 
   return (
     <>
@@ -231,7 +279,6 @@ export const Rate = ({ m, onClose }) => {
         <div className="mt-[95%] font-bold">
           It has a global rating of {m.vote_average.toFixed(1)} / 10, this may
           affect your rating. <br />
-          If you don't want to fill those you can skip it here <br />
           <div className="inputBox mt-4">
             <input
               placeholder="rate here..."
@@ -253,7 +300,7 @@ export const Rate = ({ m, onClose }) => {
         >
           {loading ? (
             <div
-              class="loader border-t-2 rounded-full border-gray-500 bg-gray-300 animate-spin
+              className="loader border-t-2 rounded-full border-gray-500 bg-gray-300 animate-spin
 aspect-square w-8 flex justify-center items-center text-yellow-700"
             ></div>
           ) : (

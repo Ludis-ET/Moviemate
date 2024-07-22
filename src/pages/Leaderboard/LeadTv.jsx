@@ -1,84 +1,123 @@
-import { useState, useEffect } from "react";
-import { fetchHomepage } from "../../hooks/fetchHomepage";
-import { Button, DeleteButton, LikeButton } from "../../components";
+import { useAuth } from "../../context/AuthContext";
+import { getDocs, collection } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { MovieCard } from "./MovieCard";
+import F from "../../assets/rate.svg";
+import "./refresh.css";
 
-export const LeadTv = ({ movies }) => {
-  const [movie, setMovie] = useState(null);
+export const LeadTv = () => {
+  const { db, currentUser } = useAuth();
+  const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
+
+  const aboutRef = collection(db, "leaderboard");
 
   useEffect(() => {
-    const fetchMovie = async () => {
+    const getMovies = async () => {
       setLoading(true);
       try {
-        const data = await fetchHomepage(
-          `https://api.themoviedb.org/3/movie/${movies.movieId}`
+        const data = await getDocs(aboutRef);
+        const res = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+
+        const filteredMovies = res.filter(
+          (m) => m.userId === currentUser.uid && m.type === "tv"
         );
-        setMovie(data);
-      } catch (error) {
-        console.error("Error fetching movie:", error);
+
+        const sortedMovies = filteredMovies
+          .map((movie) => {
+            const {
+              cinematography = 0,
+              characters = 0,
+              climax = 0,
+              ending = 0,
+              overall = 0,
+              starting = 0,
+              visual = 0,
+              plot = 0,
+              soundtrack = 0,
+              story = 0,
+              characterDevelopment = 0,
+              other = 0,
+            } = movie;
+
+            const averageRating = (
+              (cinematography +
+                characters +
+                climax +
+                ending +
+                overall +
+                starting +
+                visual +
+                plot +
+                soundtrack +
+                story +
+                characterDevelopment +
+                other) /
+              12
+            ).toFixed(1);
+
+            return { ...movie, averageRating: parseFloat(averageRating) };
+          })
+          .sort((a, b) => b.averageRating - a.averageRating);
+
+        setMovies(sortedMovies);
+      } catch (err) {
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
-    if (movies.movieId) {
-      fetchMovie();
-    }
-  }, [movies.movieId]);
+    getMovies();
+  }, [db, currentUser.uid, refresh]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <span className="loading loading-ring w-56"></span>
+      </div>
+    );
+  }
+
+  if (movies.length === 0) {
+    return (
+      <div>
+        <div className="text-3xl text-white text-center mt-8">Start Rating</div>
+        <div className="flex justify-center">
+          <img src={F} className="w-1/2 text-center self-center" alt="" />
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <>
-      {loading ? (
-        <div className="w-full flex">
-          <div
-            className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden bg-gray-300 animate-pulse"
-            title="Loading image"
-          ></div>
-          <div className="text-white w-full bg-transparent rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-            <div className="mb-8">
-              <div className="bg-gray-300 h-6 w-3/4 mb-2 animate-pulse"></div>
-              <div className="bg-gray-300 h-4 w-full animate-pulse mb-1"></div>
-              <div className="bg-gray-300 h-4 w-5/6 animate-pulse"></div>
-            </div>
-            <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-gray-300 mr-4 animate-pulse"></div>
-              <div className="text-sm">
-                <div className="bg-gray-300 h-4 w-20 animate-pulse mb-1"></div>
-                <div className="bg-gray-300 h-4 w-16 animate-pulse"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="w-full lg:flex">
-          <div
-            className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-            style={{
-              backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
-            }}
-            title={movie.title}
-          ></div>
-          <div className="text-white bg-transparent rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-            <div className="mb-8">
-              <p className="text-sm text-grey-dark flex items-center">
-                {movie.tagline}
-              </p>
-              <div className="text-white font-bold text-xl mb-2">
-                {movie.title}
-              </div>
-              <p className="text-grey-darker text-base">{movie.overview}</p>
-            </div>
-            <div className="flex items-center">
-              <div className="text-sm justify-between items-center w-full flex flex-wrap  gap-8">
-                <Button text={movie.vote_average.toFixed(1)} rate={true} />
-                <div className="flex gap-8">
-                  <LikeButton />
-                  <DeleteButton />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
+    <div className="py-8 mt-4 flex gap-8 flex-wrap w-full">
+      <button
+        type="button"
+        class="button outline-none"
+        onClick={() => setRefresh(!refresh)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-arrow-repeat"
+          viewBox="0 0 16 16"
+        >
+          <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
+          <path
+            fill-rule="evenodd"
+            d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"
+          ></path>
+        </svg>
+        Refresh
+      </button>
+
+      {movies.map((m, index) => (
+        <MovieCard key={m.id} movies={m} type={m.type} rank={index} />
+      ))}
+    </div>
   );
 };

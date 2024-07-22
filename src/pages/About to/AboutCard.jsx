@@ -135,7 +135,7 @@ export const AboutCard = ({ movieData, onRemove }) => {
                 <Button text={movie.vote_average.toFixed(1)} rate={true} />
                 <div className="flex gap-8">
                   <button onClick={() => setShow(!show)}>
-                    <LikeButton text='Rate Now' />
+                    <LikeButton text="Rate Now" />
                   </button>
                   <button onClick={RemoveAboutTo} disabled={buttonLoading}>
                     <DeleteButton />
