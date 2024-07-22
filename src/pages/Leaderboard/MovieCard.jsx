@@ -109,7 +109,7 @@ export const MovieCard = ({ movies, rank, type, isAboutCard }) => {
         <div className="w-full lg:flex">
           <Link
             to={`/${movie.id}${type === "tv" ? "/tv/" : "/"}detail`}
-            className="h-48 xl:block hidden lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+            className="h-48 xl:block hidden lg:h-auto lg:w-64 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
             style={{
               backgroundImage: `url(https://image.tmdb.org/t/p/w500/${movie.poster_path})`,
             }}
