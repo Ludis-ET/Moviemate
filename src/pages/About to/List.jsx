@@ -4,6 +4,7 @@ import { getDocs, collection } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import F from "../../assets/about.svg";
+import L from "../../assets/login.svg";
 import { Footer } from "../../components";
 
 export const List = () => {
@@ -40,6 +41,17 @@ export const List = () => {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <span className="loading loading-ring w-56"></span>
+      </div>
+    );
+  }
+
+  if (!currentUser) {
+    return (
+      <div>
+        <div className="text-3xl text-white text-center">Login First</div>
+        <div className="flex justify-center">
+          <img src={L} className="w-1/2 text-center self-center" alt="" />
+        </div>
       </div>
     );
   }

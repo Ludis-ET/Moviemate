@@ -2,9 +2,22 @@ import { LeadMovie } from "./LeadMovie";
 import { LeadTv } from "./LeadTv";
 import { Footer } from "../../components";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
+import L from '../../assets/login.svg'
 
 export const Leaderboard = () => {
+  const { currentUser } = useAuth()
   const [movie, setSwitch] = useState(true);
+  if (!currentUser) {
+    return (
+      <div>
+        <div className="text-3xl text-white text-center">Login First</div>
+        <div className="flex justify-center">
+          <img src={L} className="w-1/2 text-center self-center" alt="" />
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <div className="flex w-full justify-center items-center gap-2">

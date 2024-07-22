@@ -241,7 +241,7 @@ export const Movie = () => {
                     {movie.vote_count} people voted it
                   </div>
                   <div className="mb-2">
-                    <button
+                    {currentUser && <button
                       onClick={addOrRemoveAboutTo}
                       className={`group group-hover:before:duration-500 pr-24 group-hover:after:duration-1000 after:duration-500 hover:border-red-300  duration-500 before:duration-500 hover:duration-500 underline underline-offset-2 hover:after:-right-2 hover:before:top-8 hover:before:right-16 hover:after:scale-150 hover:after:blur-none hover:before:-bottom-8 hover:before:blur-none hover:bg-red-300 hover:underline hover:underline-offset-4  origin-left hover:decoration-2 hover:text-red-900 relative bg-red-800 h-16 w-64 border text-left p-3 text-gray-50 text-base font-bold rounded-lg  overflow-hidden before:absolute before:w-12 before:h-12 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-red-400 before:rounded-full before:blur-lg  after:absolute after:z-10 after:w-20 after:h-20 after:content['']  after:bg-[#333] after:right-8 after:top-3 after:rounded-full after:blur ${
                         buttonLoading ? "opacity-50 cursor-not-allowed" : ""
@@ -255,7 +255,7 @@ export const Movie = () => {
                       ) : (
                         "Add to About To"
                       )}
-                    </button>
+                    </button>}
                   </div>
                 </div>
                 <div className="mt-10 py-10 border-t border-white text-center">

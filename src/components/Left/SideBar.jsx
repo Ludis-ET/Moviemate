@@ -129,42 +129,15 @@ export const SideBarLeft = () => {
           >
             <div className="flex items-center justify-between mb-3">
               <span className="bg-orange-100 text-[#24282a] text-sm font-semibold me-2 px-2.5 py-0.5 rounded">
-                Beta
+                V 1.0
               </span>
-              <button
-                type="button"
-                className="-mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200"
-                data-dismiss-target="#dropdown-cta"
-                aria-label="Close"
-              >
-                <span className="sr-only">Close</span>
-                <svg
-                  className="w-2.5 h-2.5"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 14 14"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                  />
-                </svg>
-              </button>
             </div>
             <p className="mb-3 text-sm text-white dark:text-white-400">
-              Preview the new Flowbite dashboard navigation! You can turn the
-              new navigation off for a limited time in your profile.
+              This is v1.0. There will be updates, especially using AI models,
+              as the project evolves. Stay tuned for future enhancements and
+              improvements!
             </p>
-            <a
-              className="text-sm text-white underline font-medium hover:text-blue-900"
-              href="#"
-            >
-              Turn new navigation off
-            </a>
+
           </div>
         </div>
       </aside>

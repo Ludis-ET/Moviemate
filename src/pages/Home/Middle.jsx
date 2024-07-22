@@ -11,7 +11,7 @@ export const Middle = () => {
       <Movies url="https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1" title='Top Rated Movies' />
       <div className="m-16 card card-side bg-transparent shadow-2xl">
         <figure>
-          <img src={Ludis} alt="Movie" />
+          <img src={Ludis} className="w-80" alt="Movie" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">
