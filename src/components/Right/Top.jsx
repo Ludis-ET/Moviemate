@@ -10,7 +10,6 @@ export const Top = () => {
     try {
       await signUpWithGoogle();
     } catch (error) {
-      // Error handling is already done in signUpWithGoogle
     }
   };
 

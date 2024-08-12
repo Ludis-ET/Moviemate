@@ -30,7 +30,6 @@ export const MovieCard = ({ movies, rank, type, isAboutCard }) => {
     }
   }, [movies.movieId]);
 
-  // Calculate average rating
   const calculateAverageRating = () => {
     const {
       cinematography = 0,
@@ -66,7 +65,6 @@ export const MovieCard = ({ movies, rank, type, isAboutCard }) => {
 
   const average = calculateAverageRating();
 
-  // Toggle function for expanding/collapsing
   const toggleExpand = () => {
     setExpanded(!expanded);
   };

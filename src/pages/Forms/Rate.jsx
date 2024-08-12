@@ -63,7 +63,6 @@ export const Rate = ({ m, onClose }) => {
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
-        // Document exists, update it
         const docId = querySnapshot.docs[0].id;
         const docRef = doc(db, "leaderboard", docId);
         await updateDoc(docRef, {
@@ -73,7 +72,6 @@ export const Rate = ({ m, onClose }) => {
         });
         toast.success("Ratings updated successfully!");
       } else {
-        // Document does not exist, add new
         await addDoc(collection(db, "leaderboard"), {
           ...ratings,
           other: m.vote_average,

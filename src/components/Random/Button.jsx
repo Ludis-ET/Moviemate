@@ -1,5 +1,3 @@
-// Button.js or Button.jsx
-
 import React from "react";
 import "./Button.css";
 

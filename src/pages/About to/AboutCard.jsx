@@ -33,11 +33,10 @@ export const AboutCard = ({ movieData, onRemove }) => {
         await deleteDoc(doc.ref);
       });
 
-      // Notify the parent component to remove the movie from the list
       onRemove(movieData.id);
 
       toast.success("Removed from About To successfully.");
-      setShow(false); // Close the Rate component
+      setShow(false); 
     } catch (error) {
       toast.error("Failed to update About To.");
       console.error("Error updating About To:", error);

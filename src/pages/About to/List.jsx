@@ -30,7 +30,6 @@ export const List = () => {
     getMovies();
   }, [db]);
 
-  // Function to remove a movie from the list
   const handleRemoveMovie = (movieId) => {
     setMovies((prevMovies) =>
       prevMovies.filter((movie) => movie.id !== movieId)
